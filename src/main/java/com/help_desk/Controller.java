@@ -10,10 +10,6 @@ public class Controller {
     public String hello(){
         return "hello";
     }
-//    @RequestMapping("/greeting")
-//    public String greeting(){
-//        return "greeting";
-//    }
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false,
             defaultValue="World") String name, Model model) {
