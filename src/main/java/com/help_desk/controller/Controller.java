@@ -18,11 +18,26 @@ public class Controller {
     public String index(){
         return "index";
     }
-    @RequestMapping("/greeting")
-    public String greeting(@RequestParam(value="name", required=false,
-            defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    @RequestMapping("/view")
+    public String view(Model model) {
+            String view=null;
+            for(User u:userRepository.findAll()){
+                if(view==null){
+                    view="<tr>"+
+                            "<td>"+u.getId()+"</td>"+
+                            "<td>"+u.getName()+"</td>"+
+                            "<td>"+u.getAddress()+"</td>"+
+                            "</tr>";
+                }else{
+                    view=view+"<tr>"+
+                            "<td>"+u.getId()+"</td>"+
+                            "<td>"+u.getName()+"</td>"+
+                            "<td>"+u.getAddress()+"</td>"+
+                            "</tr>";
+                }
+            }
+        model.addAttribute("users", view);
+        return "viewAllUsers";
     }
     @RequestMapping("/add/{name},{address}")
     @ResponseBody
@@ -32,20 +47,6 @@ public class Controller {
         return "You add in db user: "+name+", "+address;
     }
 
-    @RequestMapping("/view")
-    @ResponseBody
-    @Transactional
-    public String view() {
-        String view=null;
-        for(User u:userRepository.findAll()){
-            if(view==null){
-                view=u+"\n";
-            }else{
-                view=view+u+"\n";
-            }
-        }
-        return ""+view;
-    }
 
 
 }

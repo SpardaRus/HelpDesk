@@ -1,8 +1,22 @@
 <html>
     <body>
-        <h1>
-            For add user, use       "/add/{name},{address}"<br>
-            For find all user, use  "/view"
-        </h1>
+        <table border="1">
+                    <caption>Commands</caption>
+                    <tr>
+                    <th>command</th>
+                    <th>description</th>
+                    </tr>
+
+                    <tr>
+                    <td>"/add/{name},{address}"</td>
+                    <td>Add user</td>
+                    </tr>
+
+                    <tr>
+                    <td>"/view"</td>
+                    <td>Find all user</td>
+                    </tr>
+
+                </table>
     </body>
 </html>
