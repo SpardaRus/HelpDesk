@@ -5,10 +5,8 @@ import com.help_desk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -45,6 +43,13 @@ public class Controller {
     public String add(@PathVariable String name,@PathVariable  String address) {
         userRepository.save(new User(name,address));
         return "You add in db user: "+name+", "+address;
+    }
+    @RequestMapping(value = "/addu",method = RequestMethod.POST)
+    public String addu(@ModelAttribute("mvc-dispatcher")User user, ModelMap model) {
+        model.addAttribute("name", user.getName());
+        model.addAttribute("address", user.getAddress());
+
+        return "addUser";
     }
 
 

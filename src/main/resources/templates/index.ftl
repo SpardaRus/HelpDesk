@@ -13,7 +13,7 @@
                     </tr>
 
                     <tr>
-                    <td>"/view"</td>
+                    <td>"/view" or <a href="/view">View</a></td>
                     <td>Find all user</td>
                     </tr>
 
