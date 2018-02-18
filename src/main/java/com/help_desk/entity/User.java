@@ -10,9 +10,18 @@ import javax.persistence.Id;
 @Entity
 @Component
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private String name;
+    private String address;
+
     public User(String name, String address) {
         this.name = name;
         this.address = address;
+    }
+    public User() {
     }
 
     public int getId() {
@@ -48,13 +57,6 @@ public class User {
                 '}';
     }
 
-    public User() {
-    }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name;
-    private String address;
 
 }

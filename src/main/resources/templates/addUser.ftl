@@ -1,24 +1,16 @@
+<#import "spring.ftl" as spring/>
 <html>
    <body>
-      <h2>Add user</h2>
-      <form:form method = "POST" action = "/addu">
-         <table>
-            <tr>
-               <td><form:label path = "name">Name</form:label></td>
-               <td><form:input path = "name" /></td>
-            </tr>
-            <tr>
-               <td><form:label path = "address">Address</form:label></td>
-               <td><form:input path = "address" /></td>
-            </tr>
-
-            <tr>
-               <td colspan = "2">
-                  <input type = "submit" value = "Submit"/>
-               </td>
-            </tr>
-         </table>
-      </form:form>
+      <div>
+          <fieldset>
+              <legend>Add user</legend>
+              <form name="person" action="" method="POST">
+                  Name: <@spring.formInput "user.name" "" "text"/>    <br/>
+                  Address: <@spring.formInput "user.address" "" "text"/>    <br/>
+                  <input type="submit" value="Create" />
+              </form>
+          </fieldset>
+      </div>
+      <p><a href="/view">View</p>
    </body>
-
 </html>

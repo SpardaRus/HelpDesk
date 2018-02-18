@@ -9,5 +9,6 @@
             </tr>
         ${users}
         </table>
+        <p><a href="/add">Add</p>
     </body>
 </html>
