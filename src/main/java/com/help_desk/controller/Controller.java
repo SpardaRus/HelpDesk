@@ -44,14 +44,19 @@ public class Controller {
         model.addAttribute("users", view);
         return "viewAllUsers";
     }
+    @RequestMapping(value = "/addUserError")
+    public String addUserError(Model model) {
+        return "addUserError";
+    }
 
     @RequestMapping(value = "/add")
-    public String add(Model model) {
+    public String addUser(Model model) {
         model.addAttribute("user",new User());
         return "addUser";
     }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String adds(Model model, //
+    public String addUser2(Model model, //
                                 @ModelAttribute("user") User user) {
 
         String name = user.getName();
@@ -60,11 +65,11 @@ public class Controller {
         if (name != null && name.length() > 0
                 && address != null && address.length() > 0) {
             userRepository.save(new User(name, address));
-            return "add";
+            return "addUser";
         }
         String error = "Name & Address is required!";
-        model.addAttribute("errorMessage", error);
-        return "add";
+        model.addAttribute("addUserError", error);
+        return "addUserError";
     }
 
 
