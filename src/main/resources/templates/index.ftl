@@ -1,19 +1,19 @@
 <html>
     <body>
-        <h2>
-        Users
-        </h2>
-        <table>
-                    <caption>Commands</caption>
+
+        <table style="margin: auto;">
+                    <caption><h1>Menu</h1></caption>
 
                     <tr>
-                    <td><a href="/add">Add</td>
-                    <td>Add user</td>
+                    <td><a href="/view">Editing users</td>
                     </tr>
 
                     <tr>
-                    <td><a href="/view">View</a></td>
-                    <td>Find all user</td>
+                    <td>Editing admins</td>
+                    </tr>
+
+                    <tr>
+                    <td>Editing events</td>
                     </tr>
 
                 </table>

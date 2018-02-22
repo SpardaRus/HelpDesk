@@ -9,12 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    @Value("${error.message}")
-    private String errorMessage;
-
     @Autowired
     UserRepository userRepository;
 
@@ -42,35 +40,24 @@ public class Controller {
                 }
             }
         model.addAttribute("users", view);
+        model.addAttribute("user",new User());
         return "viewAllUsers";
+    }
+
+    @RequestMapping(value = "/view", method = RequestMethod.POST)
+    public String addUser2(Model model, //
+                         @ModelAttribute("user") User user) {
+        if (user.getName() != null && user.getName().length() > 0
+                && user.getAddress() != null && user.getAddress().length() > 0) {
+            userRepository.save(user);
+            return "addUserOk";
+        }else {
+            return "addUserError";
+        }
     }
     @RequestMapping(value = "/addUserError")
     public String addUserError(Model model) {
         return "addUserError";
     }
-
-    @RequestMapping(value = "/add")
-    public String addUser(Model model) {
-        model.addAttribute("user",new User());
-        return "addUser";
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser2(Model model, //
-                                @ModelAttribute("user") User user) {
-
-        String name = user.getName();
-        String address = user.getAddress();
-
-        if (name != null && name.length() > 0
-                && address != null && address.length() > 0) {
-            userRepository.save(new User(name, address));
-            return "addUser";
-        }
-        String error = "Name & Address is required!";
-        model.addAttribute("addUserError", error);
-        return "addUserError";
-    }
-
 
 }

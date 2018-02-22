@@ -3,9 +3,8 @@
         <h2>
         Error:
         </h2>
-        <p>${addUserError}
+        <p>Name & Address is required!
         </p>
-        <p><a href="/add">Add</p>
         <p><a href="/view">View</p>
     </body>
 </html>
