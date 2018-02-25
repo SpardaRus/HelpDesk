@@ -66,7 +66,6 @@ public class UserController {
         if(userRepository.findById(userF.getId())!=null){
             userF=userRepository.findById(userF.getId());
             userRepository.delete(userF.getId());
-            userRepository.save(userF);
 
             model.addAttribute("userF",userF);
         }
