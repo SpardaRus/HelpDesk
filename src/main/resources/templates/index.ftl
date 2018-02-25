@@ -5,7 +5,7 @@
                     <caption><h1>Menu</h1></caption>
 
                     <tr>
-                    <td><a href="/view">Editing users</td>
+                    <td><a href="/view_user">Editing users</td>
                     </tr>
 
                     <tr>
