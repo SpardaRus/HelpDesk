@@ -9,7 +9,7 @@
                     </tr>
 
                     <tr>
-                    <td>Editing admins</td>
+                    <td><a href="/view_admin">Editing admins</td>
                     </tr>
 
                     <tr>

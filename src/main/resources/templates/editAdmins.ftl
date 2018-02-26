@@ -24,7 +24,7 @@
 <div align="center" style="margin: auto;
                     height: 50px;
                     width: 500px;">
-                <h1>Edit users</h1>
+                <h1>Edit admins</h1>
 </div>
 
    <div style="width: 500px;
@@ -34,7 +34,6 @@
                               <tr>
                     <th width="40">id</th>
                     <th width="200">name</th>
-                    <th width="200">address</th>
                 </tr>
 
             </table>
@@ -42,10 +41,9 @@
 
             <div align="left" class="prokrutka">
             <table border="1" >
-            <#list users as users>
-                                <tr><td width="40">${users.id}
-                                <td width="200">${users.name}
-                                <td width="200">${users.address}
+            <#list admins as admins>
+                                <tr><td width="40">${admins.id}
+                                <td width="200">${admins.name}
                               </#list>
             </table>
             </div>
@@ -54,16 +52,15 @@
 
 <div class="size">
           <fieldset>
-              <legend>Add user</legend>
-              <form name="addUser" action="add_user" method="POST">
+              <legend>Add admin</legend>
+              <form name="addAdmin" action="add_admin" method="POST">
               <table>
                                       <tr>
-                                      <td>Name   :</td><td>Address:</td>
+                                      <td>Name   :</td>
                                       </tr>
                                       <tr>
-                                      <td><@spring.formInput "user.name" "" "text"/></td>
-                                      <td><@spring.formInput "user.address" "" "text"/></td>
-                                      </tr>
+                                      <td><@spring.formInput "admin.name" "" "text"/></td>
+                                       </tr>
                                       <tr>
                                       <td><input type="submit" value="Create" /></td>
                                      </tr>
@@ -73,27 +70,29 @@
       </div>
       <div class="size">
                 <fieldset>
-                    <legend>Edit/Delete users</legend>
+                    <legend>Edit/Delete admins</legend>
                     <form name="e/d" action="" method="POST">
                     <table>
                         <tr>
-                        <td>Id     :</td><td>Name   :</td><td>Address:</td>
+                        <td>Id     :</td><td>Name   :</td>
                         </tr>
                         <tr>
-                        <td><@spring.formInput "userF.id" "" "text"/></td><td><@spring.formInput "userF.name" "" "text"/></td><td><@spring.formInput "userF.address" "" "text"/></td>
+                        <td><@spring.formInput "adminF.id" "" "text"/></td><td><@spring.formInput "adminF.name" "" "text"/></td>
                         </tr>
                         <tr>
-                        <td><input type="submit" value="Find" formaction="find_user"/></td>
-                        <td><input type="submit" value="Edit" formaction="edit_user"/></td>
-                        <td><input type="submit" value="Delete" formaction="delete_user" /></td>
+                        <td><input type="submit" value="Find" formaction="find_admin"/></td>
+                        <td><input type="submit" value="Edit" formaction="edit_admin"/></td>
+                        <td><input type="submit" value="Delete" formaction="delete_admin" /></td>
                         </tr>
                     </table>
 
                     </form>
                 </fieldset>
             </div>
-           <div class="size">
-                       <a href="/"><button>Menu</button>
-                       </div>
+            <div class="size">
+            <a href="/"><button>Menu</button>
+            </div>
+
+
     </body>
 </html>
