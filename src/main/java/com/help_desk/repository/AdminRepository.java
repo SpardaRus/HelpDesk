@@ -16,5 +16,5 @@ public interface AdminRepository extends CrudRepository<Admin,Integer> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE Admin a SET a.name=:name WHERE a.id=:id", nativeQuery = true)
-    int setAdmin(@Param("id") Integer id, @Param("name") String nameS);
+    int setAdmin(@Param("id") Integer id, @Param("name") String name);
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <style>
+    .prokrutka {
+    margin: auto;
+            height: 200px; /* высота нашего блока */
+            width: 500px; /* ширина нашего блока */
+    overflow-y: scroll; /* прокрутка по вертикали */
+    }
+    </style>
+    <style>
+        .size {
+        margin: auto;
+        height: 130px; /* высота нашего блока */
+        width: 500px; /* ширина нашего блока */
+        }
+       </style>
+
+
+</head>
+    <body>
+<div align="center" style="margin: auto;
+                    height: 50px;
+                    width: 500px;">
+                <h1>Edit users</h1>
+</div>
+
+   <div style="width: 500px;
+           margin: auto;">
+   <div align="left" >
+    <table border="1" >
+                              <tr>
+                    <th width="40">id</th>
+                    <th width="200">name</th>
+                    <th width="200">address</th>
+                </tr>
+
+            </table>
+             </div>
+
+            <div align="left" class="prokrutka">
+            <table border="1" >
+                <tr th:each="users : ${users}">
+                    <td width="40" th:text="${users.id}"></td>
+                    <td width="200" th:text="${users.name}"></td>
+                    <td width="200" th:text="${users.address}"></td>
+                </tr>
+            </table>
+            </div>
+            </div>
+
+
+<div class="size">
+          <fieldset>
+              <legend>Add user</legend>
+              <form th:action="@{/user/add_user}"  th:object="${user}" method="post">
+                  <div >
+                      <input type="text" id="name" th:field="*{name}" placeholder="Name" />
+                  </div>
+                  <div >
+                      <input type="text" id="address" th:field="*{address}" placeholder="Address" />
+                  </div>
+                  <input type="submit" value="Create"/>
+              </form>
+          </fieldset>
+      </div>
+      <div class="size">
+                <fieldset>
+                    <legend>Edit/Delete users</legend>
+                    <form name="e/d" action="" th:object="${userF}" method="POST">
+                        <table>
+                            <tr>
+                                <td>Id     :</td>
+                                <td>Name   :</td>
+                                <td>Address   :</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="id" th:field="*{id}"/></td>
+                                <td><input type="text" id="uname" th:field="*{name}"/></td>
+                                <td><input type="text" id="uaddress" th:field="*{address}"/></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="Find" formaction="find_user"/></td>
+                                <td><input type="submit" value="Edit" formaction="edit_user"/></td>
+                                <td><input type="submit" value="Delete" formaction="delete_user"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </fieldset>
+            </div>
+           <div class="size">
+                       <a href="/"><button>Menu</button></a>
+                       </div>
+    </body>
+</html>

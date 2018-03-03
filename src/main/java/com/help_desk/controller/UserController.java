@@ -4,6 +4,7 @@ import com.help_desk.entity.User;
 import com.help_desk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,23 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
-@org.springframework.stereotype.Controller
+@RequestMapping("/user")
+@Controller
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping("/")
-    public String index(){
-        return "index";
-    }
 
     @RequestMapping("/view_user")
     public String view(Model model,@ModelAttribute("userF") User userF) {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("user",new User());
         model.addAttribute("userF",userF);
-        return "editUsers";
+        return "user/editUsers";
     }
     @RequestMapping(value = "/find_user", method = RequestMethod.POST)
     public String findUser(Model model,
@@ -40,7 +38,7 @@ public class UserController {
             userF=userRepository.findById(userF.getId());
             model.addAttribute("userF",userF);
         }
-        return "editUsers";
+        return "user/editUsers";
     }
 
     @RequestMapping(value = "/edit_user", method = RequestMethod.POST)
@@ -55,7 +53,7 @@ public class UserController {
         }
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("user",new User());
-        return "editUsers";
+        return "user/editUsers";
     }
     @RequestMapping(value = "/delete_user", method = RequestMethod.POST)
     public String deleteUser(Model model,
@@ -70,19 +68,19 @@ public class UserController {
         }
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("user",new User());
-        return "editUsers";
+        return "user/editUsers";
     }
     @RequestMapping(value = "/add_user", method = RequestMethod.POST)
-    public String addUser2(Model model,
+    public String addUser(Model model,
                            @ModelAttribute("user") User user,
                            @ModelAttribute("userF") User userF) {
 
         if (user.getName() != null && user.getName().length() > 0
                 && user.getAddress() != null && user.getAddress().length() > 0) {
             userRepository.save(user);
-            return "addUserOk";
+            return "user/addUserOk";
         }else {
-            return "addUserError";
+            return "user/addUserError";
         }
     }
 

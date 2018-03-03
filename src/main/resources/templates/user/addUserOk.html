@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <h2>
+        Complete:
+        </h2>
+        <div>
+            User with name: <div th:text="${user.name}"></div> <div th:text="${user.address}"></div>
+            successfully added
+        </div>
+
+        <p><a href="user/view_user">Edit users</a></p>
+    </body>
+</html>
