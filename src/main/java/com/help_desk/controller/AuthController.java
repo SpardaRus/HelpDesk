@@ -4,7 +4,6 @@ import com.help_desk.controller.form.UserRegistrationForm;
 import com.help_desk.entity.UserSecurity;
 import com.help_desk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,16 +54,4 @@ public class AuthController {
     }
 
 
-    @GetMapping("/profile")
-    public String profile() {
-
-        return "auth/profile";
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/admin")
-    public String admin() {
-
-        return "auth/admin";
-    }
 }

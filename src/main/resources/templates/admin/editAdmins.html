@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <meta charset="utf-8"/>
+    <title>Help_desk</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <style>
     .prokrutka {
     margin: auto;
@@ -18,74 +21,100 @@
         width: 500px; /* ширина нашего блока */
         }
        </style>
-
-
 </head>
-    <body>
-<div align="center" style="margin: auto;
+<body>
+<header>
+    <span sec:authentication="name">Username</span>
+    Roles: <span sec:authentication="principal.authorities">Roles</span>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit" >Logout</button>
+    </form>
+</header>
+
+<table width="100%"
+       style="height:100%">
+    <tr>
+        <td width="15%">
+            <div class="category-wrap">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="">List event</a></li>
+                    <li><a href="/user/view_user">Users</a></li>
+                    <li><a href="/admin/view_admin">Admins</a></li>
+                    <li><a href="registration">Registrations</a></li>
+                </ul>
+            </div>
+        </td>
+        <td width="85%">
+            <div align="center" style="margin: auto;
                     height: 50px;
                     width: 500px;">
                 <h1>Edit admins</h1>
-</div>
+            </div>
 
-   <div style="width: 500px;
+            <div style="width: 500px;
            margin: auto;">
-   <div align="left" >
-    <table border="1" >
-                              <tr>
-                    <th width="40">id</th>
-                    <th width="200">name</th>
-                </tr>
+                <div align="left" >
+                    <table border="1" >
+                        <tr>
+                            <th width="40">id</th>
+                            <th width="200">name</th>
+                        </tr>
 
-            </table>
-             </div>
+                    </table>
+                </div>
 
-            <div align="left" class="prokrutka">
-            <table border="1" >
-                <tr th:each="admins : ${admins}">
-                <td width="40" th:text="${admins.id}"></td>
-                    <td width="200" th:text="${admins.name}"></td>
-                </tr>
-            </table>
+                <div align="left" class="prokrutka">
+                    <table border="1" >
+                        <tr th:each="admins : ${admins}">
+                            <td width="40" th:text="${admins.id}"></td>
+                            <td width="200" th:text="${admins.name}"></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
+
+
+            <div class="size">
+                <fieldset>
+                    <legend>Add admin</legend>
+                    <form th:action="@{/admin/add_admin}"  th:object="${admin}" method="post">
+                        <div >
+                            <input type="text" id="name" th:field="*{name}" placeholder="Name" />
+                        </div>
+                        <input type="submit" value="Create"/>
+                    </form>
+                </fieldset>
             </div>
-
-
-<div class="size">
-          <fieldset>
-              <legend>Add admin</legend>
-              <form th:action="@{/admin/add_admin}"  th:object="${admin}" method="post">
-                  <div >
-                      <input type="text" id="name" th:field="*{name}" placeholder="Name" />
-                  </div>
-                  <input type="submit" value="Create"/>
-              </form>
-          </fieldset>
-      </div>
-<div class="size">
-    <fieldset>
-        <legend>Edit/Delete admins</legend>
-        <form name="e/d" action="" th:object="${adminF}" method="POST">
-            <table>
-                <tr>
-                    <td>Id     :</td>
-                    <td>Name   :</td>
-                </tr>
-                <tr>
-                    <td><input type="text" id="id" th:field="*{id}"/></td>
-                    <td><input type="text" id="aname" th:field="*{name}"/></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Find" formaction="find_admin"/></td>
-                    <td><input type="submit" value="Edit" formaction="edit_admin"/></td>
-                    <td><input type="submit" value="Delete" formaction="delete_admin"/></td>
-                </tr>
-            </table>
-        </form>
-    </fieldset>
-</div>
-<div class="size">
-    <a href="/"><button>Menu</button></a>
-</div>
-    </body>
+            <div class="size">
+                <fieldset>
+                    <legend>Edit/Delete admins</legend>
+                    <form name="e/d" action="" th:object="${adminF}" method="POST">
+                        <table>
+                            <tr>
+                                <td>Id     :</td>
+                                <td>Name   :</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="id" th:field="*{id}"/></td>
+                                <td><input type="text" id="aname" th:field="*{name}"/></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="Find" formaction="find_admin"/></td>
+                                <td><input type="submit" value="Edit" formaction="edit_admin"/></td>
+                                <td><input type="submit" value="Delete" formaction="delete_admin"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </fieldset>
+            </div>
+        </td>
+    </tr>
+</table>
+<footer>
+    <div>
+        <h2>Aleksey Yasakov</h2>
+    </div>
+</footer>
+ </body>
 </html>

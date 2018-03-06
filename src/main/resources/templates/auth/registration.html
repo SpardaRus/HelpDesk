@@ -1,28 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      th:include="layout :: page">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <title>Help_desk</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
 <body>
-<div th:fragment="content">
-    <div  class="page-header">
-        <h2 class="text-center">Sign Up</h2>
-    </div>
-    <form th:action="@{/registration}" method="post" class="form-sign" th:object="${user}">
-        <div class="form-group">
-            <label class="control-label" for="username">User Name</label>
-            <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Username" />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="password">Password</label>
-            <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Password" />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="confirmPassword">Confirm Password</label>
-            <input type="password" class="form-control" th:field="*{confirmPassword}" id="confirmPassword" placeholder="Confirm Password" />
-        </div>
-
-        <input class="btn btn-success btn-block" type="submit" value="Sign Up"/>
+<header>
+    <span sec:authentication="name">Username</span>
+    Roles: <span sec:authentication="principal.authorities">Roles</span>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
     </form>
-</div>
+</header>
+
+<table width="100%"
+       style="height:100%">
+    <tr>
+        <td width="100%">
+            <div>
+                <div>
+                    <h2>Sign Up</h2>
+                </div>
+                <form th:action="@{/registration}" method="post" th:object="${user}">
+                    <div>
+                        <label for="username">User Name</label>
+                        <input type="text" id="username" th:field="*{username}" placeholder="Username" />
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" th:field="*{password}" id="password" placeholder="Password" />
+                    </div>
+                    <div>
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" th:field="*{confirmPassword}" id="confirmPassword" placeholder="Confirm Password" />
+                    </div>
+
+                    <input type="submit" value="Sign Up"/>
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
+<footer>
+    <div>
+        <h2>Aleksey Yasakov</h2>
+    </div>
+</footer>
+
 </body>
 </html>
