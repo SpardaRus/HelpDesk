@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:fragment="page">
-    <body>
-    <div th:fragment="content">
-    <table style="margin: auto;">
-        <caption><h1>Menu</h1></caption>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <title>Help_desk</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <span sec:authentication="name">Username</span>
+     Roles: <span sec:authentication="principal.authorities">Roles</span>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit" >Logout</button>
+    </form>
+</header>
 
-        <tr>
-            <td><a href="/user/view_user">Editing users</a></td>
-        </tr>
-
-        <tr>
-            <td><a href="/admin/view_admin">Editing admins</a></td>
-        </tr>
-
-        <tr>
-            <td>Editing events</td>
-        </tr>
-
-    </table>
+<table width="100%"
+       style="height:100%">
+    <tr>
+        <td width="15%">
+            <div class="category-wrap">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="">List event</a></li>
+                    <li><a href="/user/view_user">Users</a></li>
+                    <li><a href="/admin/view_admin">Admins</a></li>
+                </ul>
+            </div>
+        </td>
+        <td width="85%"></td>
+    </tr>
+</table>
+<footer>
+    <div>
+        <h2>Aleksey Yasakov</h2>
     </div>
-    </body>
+</footer>
+</body>
 </html>

@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      th:include="layout :: page">
-<body>
-<div th:fragment="content">
-    <div  class="page-header">
-        <h2 class="text-center">Sign In</h2>
-    </div>
-    <div th:if="${param.error}" class="alert alert-danger form-sign">
-        Invalid username or password.
-    </div>
-    <div th:if="${param.logout}" class="alert alert-success form-sign">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post" class="form-sign">
-        <div class="form-group">
-            <label class="control-label" for="username">User Name</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
-        </div>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <title>Help_desk</title>
+    <style>header{
+	background-color:rgb(0,0,0);
+	color:rgb(255,255,255);
+	text-align: right;
+	padding-right:50px;
+	padding-top:5px;
+	height: 70px;
+}
 
-        <input class="btn btn-success btn-block" type="submit" value="Sign In"/>
-    </form>
+footer{
+	position: relative;
+	padding: 5px;
+	background-color:rgb(0,0,0);
+	color: #fff;
+}
+
+html, body {
+	height:100%;
+	margin:0px;
+	padding:0px;
+}</style>
+</head>
+<body>
+<header>
+    <h2>Login</h2>
+</header>
+<div style="margin:15% auto 15%">
+    <table  width="100%"
+            style="height:100%">
+        <tr>
+            <td align="center" width="100%">
+                <div>
+                    <div th:if="${param.error}">
+                        Invalid username or password.
+                    </div>
+                    <div th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <form th:action="@{/login}" method="post">
+                        <div>
+                            <label for="username">User Name</label>
+                            <input type="text" id="username" name="username" placeholder="Username" />
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password" />
+                        </div>
+
+                        <input type="submit" value="Sign In"/>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
+
+<footer>
+    <div>
+        <h2>Aleksey Yasakov</h2>
+    </div>
+</footer>
 </body>
 </html>

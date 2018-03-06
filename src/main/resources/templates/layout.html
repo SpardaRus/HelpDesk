@@ -4,22 +4,19 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:fragment="page">
 <head>
-    <title>MVC Example</title>
+    <title>Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" th:href="@{/css/theme.css}" />
 
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container">
 
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul sec:authorize="isAuthenticated()" class="nav navbar-nav">
-
-            </ul>
-            <form sec:authorize="isAuthenticated()" class="navbar-form navbar-right" th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-link">Logout</button>
+    <div>
+        <div >
+            <ul sec:authorize="isAuthenticated()"/>
+            <form sec:authorize="isAuthenticated()"th:action="@{/logout}" method="post">
+                <button type="submit" >Logout</button>
             </form>
             <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
                 <li><a th:href="@{/profile}" sec:authentication="name">Profile</a></li>
@@ -30,11 +27,7 @@
             </ul>
         </div>
     </div>
-</nav>
 
-<div class="container">
-    <div th:include="this :: content"></div>
-</div>
 
 </body>
 </html>
