@@ -41,7 +41,7 @@
                     <li><a href="">List event</a></li>
                     <li><a href="/user/view_user">Users</a></li>
                     <li><a href="/admin/view_admin">Admins</a></li>
-                    <li><a href="registration">Registrations</a></li>
+                    <li><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
@@ -89,7 +89,7 @@
             <div class="size">
                 <fieldset>
                     <legend>Edit/Delete admins</legend>
-                    <form name="e/d" action="" th:object="${adminF}" method="POST">
+                    <form name="e/d" action="#" th:action="@{/admin/find_admin}" th:object="${adminF}" method="POST">
                         <table>
                             <tr>
                                 <td>Id     :</td>

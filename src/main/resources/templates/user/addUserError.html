@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <body>
         <h2>
         Error:
         </h2>
         <p>Name and Address is required!
         </p>
-        <p><a href="/user/view_user">View</a></p>
+        <p><a th:href="@{/user/view_user}">View</a></p>
     </body>
 </html>

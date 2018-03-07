@@ -41,7 +41,7 @@
                     <li><a href="">List event</a></li>
                     <li><a href="/user/view_user">Users</a></li>
                     <li><a href="/admin/view_admin">Admins</a></li>
-                    <li><a href="registration">Registrations</a></li>
+                    <li><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
@@ -94,7 +94,7 @@
       <div class="size">
                 <fieldset>
                     <legend>Edit/Delete users</legend>
-                    <form name="e/d" action="" th:object="${userF}" method="POST">
+                    <form name="e/d" action="#" th:action="@{/user/find_user}"  th:object="${userF}" method="POST">
                         <table>
                             <tr>
                                 <td>Id     :</td>
@@ -102,12 +102,12 @@
                                 <td>Address   :</td>
                             </tr>
                             <tr>
-                                <td><input type="text" id="id" th:field="*{id}"/></td>
-                                <td><input type="text" id="uname" th:field="*{name}"/></td>
-                                <td><input type="text" id="uaddress" th:field="*{address}"/></td>
+                                <td><input type="text" th:field="*{id}"/></td>
+                                <td><input type="text" th:field="*{name}"/></td>
+                                <td><input type="text" th:field="*{address}"/></td>
                             </tr>
                             <tr>
-                                <td><input type="submit" value="Find" formaction="find_user"/></td>
+                                <td><input type="submit" value="Find" /></td>
                                 <td><input type="submit" value="Edit" formaction="edit_user"/></td>
                                 <td><input type="submit" value="Delete" formaction="delete_user"/></td>
                             </tr>

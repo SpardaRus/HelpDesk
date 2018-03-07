@@ -26,7 +26,13 @@ public class User {
         this.name = name;
         this.address = address;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public User() {
+
     }
 
     public int getId() {

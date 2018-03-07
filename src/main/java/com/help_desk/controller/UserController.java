@@ -24,6 +24,7 @@ public class UserController {
     public String view(Model model,@ModelAttribute("userF") User userF) {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("user",new User());
+        userF=new User();
         model.addAttribute("userF",userF);
         return "user/editUsers";
     }
@@ -32,12 +33,13 @@ public class UserController {
                            @ModelAttribute("userF") User userF,
                            @ModelAttribute("users") User users,
                            @ModelAttribute("user") User user){
-        model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("user",new User());
+
         if(userRepository.findById(userF.getId())!=null){
             userF=userRepository.findById(userF.getId());
             model.addAttribute("userF",userF);
         }
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("user",new User());
         return "user/editUsers";
     }
 
