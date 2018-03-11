@@ -18,10 +18,6 @@ public class EventController {
     @GetMapping
     public String index(Model model){
         model.addAttribute("events", eventRepository.findAll());
-        for(Event event:eventRepository.findAll()){
-            System.out.println(event.getAdmin().getName());
-        }
-
         return "index";
     }
 }
