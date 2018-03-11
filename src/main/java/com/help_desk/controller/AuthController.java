@@ -1,7 +1,11 @@
 package com.help_desk.controller;
 
 import com.help_desk.controller.form.UserRegistrationForm;
+import com.help_desk.entity.Event;
+import com.help_desk.entity.User;
 import com.help_desk.entity.UserSecurity;
+import com.help_desk.repository.EventRepository;
+import com.help_desk.repository.UserRepository;
 import com.help_desk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @RequestMapping("/")
 @Controller
 public class AuthController {
-    @GetMapping
-    public String index(){
-        return "index";
-    }
+
+
     @Autowired
     private UserService userService;
 

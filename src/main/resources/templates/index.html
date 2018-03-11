@@ -3,6 +3,14 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <style>
+    .prokrutka {
+    margin: auto;
+            height: 200px; /* высота нашего блока */
+            width: 800px; /* ширина нашего блока */
+    overflow-y: scroll; /* прокрутка по вертикали */
+    }
+    </style>
     <meta charset="utf-8"/>
     <title>Help_desk</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
@@ -23,16 +31,58 @@
             <div class="category-wrap">
                 <h3>Menu</h3>
                 <ul>
-                    <li><a href="">List event</a></li>
+                    <li><a th:href="@{/}">List event</a></li>
                     <li><a href="/user/view_user">Users</a></li>
                     <li><a href="/admin/view_admin">Admins</a></li>
                     <li><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
-        <td width="85%"></td>
+        <td width="85%">
+            <div align="center" style="margin: auto;
+                    height: 50px;
+                    width: 800px;">
+                <h1>Events</h1>
+            </div>
+
+            <div style="width: 800px;
+           margin: auto;">
+                <div align="left" >
+                    <table border="1" >
+                        <tr>
+                            <th width="40">id</th>
+                            <th width="100">user.name</th>
+                            <th width="100">admin.name</th>
+                            <th width="100">description</th>
+                            <th width="100">date</th>
+                            <th width="100">comment</th>
+                            <th width="100">quality.name</th>
+                            <th width="100">status.name</th>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div align="left" class="prokrutka">
+                    <table border="1" >
+                        <tr th:each="event : ${events}">
+                            <td width="40" th:text="${event.id}"></td>
+                            <td width="100" th:text="${event.user.name}"></td>
+                            <td width="100" th:text="${event.admin.name}"></td>
+                            <td width="100" th:text="${event.description}"></td>
+                            <td width="100" th:text="${event.date}"></td>
+                            <td width="100" th:text="${event.comment}"></td>
+                            <td width="100" th:text="${event.quality.name}"></td>
+                            <td width="100" th:text="${event.status.name}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </td>
     </tr>
 </table>
+
 <footer>
     <div>
         <h2>Aleksey Yasakov</h2>

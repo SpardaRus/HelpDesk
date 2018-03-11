@@ -1,11 +1,7 @@
 package com.help_desk.entity;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class User {
@@ -15,6 +11,7 @@ public class User {
     private int id;
     private String name;
     private String address;
+
 
     public User(int id, String name, String address) {
         this.id = id;

@@ -21,7 +21,9 @@ public class UserSecurity implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="role_assignments", joinColumns = @JoinColumn(name="id_user"), inverseJoinColumns = @JoinColumn(name="id_role"))
+    @JoinTable(name="role_assignments",
+            joinColumns = @JoinColumn(name="id_user"),
+            inverseJoinColumns = @JoinColumn(name="id_role"))
     private Set<Role> roles;
 
     public Long getId() {
