@@ -51,6 +51,7 @@ public class EventController {
 
         }
         model.addAttribute("events", events);
+        model.addAttribute("eventF", new Event());
         return "event/listEvent";
     }
     @GetMapping("/addEvent")
@@ -76,8 +77,9 @@ public class EventController {
 
     }
     @GetMapping("/editEvent")
-    public String editEvent(Model model){
-        model.addAttribute("event",new Event());
+    public String editEvent(Model model,@ModelAttribute("eventF") Event event){
+        event=eventRepository.findById(event.getId());
+        model.addAttribute("event",event);
         model.addAttribute("users",userRepository.findAll());
         model.addAttribute("admins",adminRepository.findAll());
         model.addAttribute("qualitys",qualityRepository.findAll());
@@ -86,11 +88,10 @@ public class EventController {
     }
     @PostMapping("/editEvent")
     public String editEventPost(Model model,@ModelAttribute("event") Event event){
-
-
-            return "event/addEventOk";
-
-
+            eventRepository.setEvent(event.getId(),event.getAdmin().getId(),event.getUser().getId(),
+                    event.getDescription(),event.getDate(),event.getComment(),
+                    event.getQuality().getId(),event.getStatus().getId());
+            return "event/listEvent";
     }
 
 }

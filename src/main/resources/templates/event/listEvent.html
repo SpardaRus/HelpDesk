@@ -85,7 +85,12 @@
                             <a th:href="@{/addEvent}"><button>add</button></a>
                         </td>
                         <td width="300">
-                            <a th:href="@{/editEvent}"><button>edit</button></a>
+                            <form th:action="@{/editEvent}"  th:object="${eventF}" method="get">
+                                <div >
+                                    <input type="text" id="id" th:field="*{id}" placeholder="id" />
+                                </div>
+                                <input type="submit" value="Edit"/>
+                            </form>
                         </td>
                     </tr>
                 </table>
