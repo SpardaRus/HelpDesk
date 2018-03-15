@@ -45,37 +45,47 @@
                     <legend>Add event</legend>
                     <form th:action="@{/addEvent}"  th:object="${event}" method="post">
                         <select th:field="*{user}">
-                            <option value=""> -- </option>
+                            <option value=""> user </option>
                             <option th:each="users : ${users}"
-                                    th:value="${users}"
-                                    th:text="${users.name}">Wireframe</option>
+                                    th:value="${users.id}"
+                                    th:text="${users.name}"></option>
                         </select>
-                        <div >
-                            <input type="text" id="admin" th:field="*{admin}" placeholder="admin" />
-                        </div>
+                        <select th:field="*{admin}">
+                            <option value=""> admin </option>
+                            <option th:each="admins : ${admins}"
+                                    th:value="${admins.id}"
+                                    th:text="${admins.name}">Wireframe</option>
+                        </select>
                         <div >
                             <input type="text" id="description" th:field="*{description}" placeholder="description" />
                         </div>
                         <div >
                             <input type="text" id="comment" th:field="*{comment}" placeholder="comment" />
                         </div>
-                        <div >
-                            <input type="text" id="quality" th:field="*{quality}" placeholder="quality" />
-                        </div>
-                        <div >
-                            <input type="text" id="status" th:field="*{status}" placeholder="status" />
-                        </div>
+                        <select th:field="*{quality}">
+                            <option value=""> quality </option>
+                            <option th:each="qualitys : ${qualitys}"
+                                    th:value="${qualitys.id}"
+                                    th:text="${qualitys.name}">Wireframe</option>
+                        </select>
+                        <select th:field="*{status}">
+                            <option value=""> status </option>
+                            <option th:each="statuses : ${statuses}"
+                                    th:value="${statuses.id}"
+                                    th:text="${statuses.name}">Wireframe</option>
+                        </select>
 
                         <input type="submit" value="Create"/>
                     </form>
                 </fieldset>
             </div>
+            <div align="center">
+                <a th:href="@{/}"><button>back</button></a>
+            </div>
         </td>
     </tr>
 </table>
-<div align="center">
-<a th:href="@{/}"><button>back</button></a>
-</div>
+
 <footer>
     <div>
         <h2>Aleksey Yasakov</h2>

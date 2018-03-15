@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <style>
+    .prokrutka {
+    margin: auto;
+            height: 200px; /* высота нашего блока */
+            width: 800px; /* ширина нашего блока */
+    overflow-y: scroll; /* прокрутка по вертикали */
+    }
+    </style>
+    <meta charset="utf-8"/>
+    <title>Help_desk</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <span sec:authentication="name">Username</span>
+     Roles: <span sec:authentication="principal.authorities">Roles</span>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit" >Logout</button>
+    </form>
+</header>
+
+<table width="100%"
+       style="height:100%">
+    <tr>
+        <td width="15%">
+            <div class="category-wrap">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a th:href="@{/}">List event</a></li>
+                    <li><a href="/user/view_user">Users</a></li>
+                    <li><a href="/admin/view_admin">Admins</a></li>
+                    <li><a th:href="@{/registration}">Registrations</a></li>
+                </ul>
+            </div>
+        </td>
+        <td width="85%">
+            <div align="center">
+
+                <fieldset>
+                    <legend>Add event</legend>
+                    <form th:action="@{/editEvent}"  th:object="${event}" method="post">
+                        <table>
+                            <tr>
+                                <td align="right" width="500">
+                                    <div>
+                                        User:
+                                    </div>
+                                    <div>
+                                        Admin:
+                                    </div>
+                                    <div>
+                                        Description:
+                                    </div>
+                                    <div>
+                                        Comment:
+                                    </div>
+                                    <div>
+                                        Quality:
+                                    </div>
+                                    <div>
+                                        Status:
+                                    </div>
+                                </td>
+                                <td width="500">
+                                    <div>
+                                        <select th:field="*{user}">
+                                            <option value=""> user </option>
+                                            <option th:each="users : ${users}"
+                                                    th:value="${users.id}"
+                                                    th:text="${users.name}"></option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select th:field="*{admin}">
+                                            <option value=""> admin </option>
+                                            <option th:each="admins : ${admins}"
+                                                    th:value="${admins.id}"
+                                                    th:text="${admins.name}">Wireframe</option>
+                                        </select>
+                                    </div>
+
+                                    <div >
+                                        <input type="text" id="description" th:field="*{description}" placeholder="description" />
+                                    </div>
+                                    <div >
+                                        <input type="text" id="comment" th:field="*{comment}" placeholder="comment" />
+                                    </div>
+                                    <div>
+                                        <select th:field="*{quality}">
+                                            <option value=""> quality </option>
+                                            <option th:each="qualitys : ${qualitys}"
+                                                    th:value="${qualitys.id}"
+                                                    th:text="${qualitys.name}">Wireframe</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select th:field="*{status}">
+                                            <option value=""> status </option>
+                                            <option th:each="statuses : ${statuses}"
+                                                    th:value="${statuses.id}"
+                                                    th:text="${statuses.name}">Wireframe</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <input type="submit" value="Edit"/>
+                    </form>
+                </fieldset>
+            </div>
+            <div align="center">
+                <a th:href="@{/}"><button>back</button></a>
+            </div>
+        </td>
+    </tr>
+</table>
+<footer>
+    <div>
+        <h2>Aleksey Yasakov</h2>
+    </div>
+</footer>
+</body>
+</html>

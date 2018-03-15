@@ -50,7 +50,7 @@
                 <div align="left" >
                     <table border="1" >
                         <tr>
-                            <th width="40">id</th>
+                            <th width="20">id</th>
                             <th width="100">user.name</th>
                             <th width="100">admin.name</th>
                             <th width="100">description</th>
@@ -66,7 +66,7 @@
                 <div align="left" class="prokrutka">
                     <table border="1" >
                         <tr th:each="event : ${events}">
-                            <td width="40" th:text="${event.id}"></td>
+                            <td width="20" th:text="${event.id}"></td>
                             <td width="100" th:text="${event.user.name}"></td>
                             <td width="100" th:text="${event.admin.name}"></td>
                             <td width="100" th:text="${event.description}"></td>
@@ -78,13 +78,22 @@
                     </table>
                 </div>
             </div>
+            <div align="center">
+                <table>
+                    <tr>
+                        <td width="300">
+                            <a th:href="@{/addEvent}"><button>add</button></a>
+                        </td>
+                        <td width="300">
+                            <a th:href="@{/editEvent}"><button>edit</button></a>
+                        </td>
+                    </tr>
+                </table>
 
+            </div>
         </td>
     </tr>
 </table>
-<div align="center">
-<a th:href="@{/addEvent}"><button>add event</button></a>
-</div>
 <footer>
     <div>
         <h2>Aleksey Yasakov</h2>
