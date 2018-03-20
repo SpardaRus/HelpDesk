@@ -57,10 +57,6 @@ public class EventController {
     @GetMapping("/addEvent")
     public String addEvent(Model model){
         model.addAttribute("event",new Event());
-        model.addAttribute("users",userRepository.findAll());
-        model.addAttribute("admins",adminRepository.findAll());
-        model.addAttribute("qualitys",qualityRepository.findAll());
-        model.addAttribute("statuses",statusRepository.findAll());
         return "event/addEvent";
     }
     @PostMapping("/addEvent")
@@ -70,28 +66,45 @@ public class EventController {
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
             event.setDate(""+formatForDateNow.format(date));
             eventRepository.save(event);
-            return "event/addEventOk";
+            model.addAttribute("error","Successfully added");
         }else{
-            return "event/addEventError";
+            model.addAttribute("error","The description should be filling");
         }
-
+        return "log/log";
     }
     @GetMapping("/editEvent")
     public String editEvent(Model model,@ModelAttribute("eventF") Event event){
-        event=eventRepository.findById(event.getId());
-        model.addAttribute("event",event);
-        model.addAttribute("users",userRepository.findAll());
-        model.addAttribute("admins",adminRepository.findAll());
-        model.addAttribute("qualitys",qualityRepository.findAll());
-        model.addAttribute("statuses",statusRepository.findAll());
-        return "event/editEvent";
+        if(eventRepository.findOne(event.getId())==null){
+            model.addAttribute("error","Incorrect data");
+            return "log/log";
+        }else{
+            event=eventRepository.findOne(event.getId());
+            model.addAttribute("event",event);
+            model.addAttribute("users",userRepository.findAll());
+            model.addAttribute("admins",adminRepository.findAll());
+            model.addAttribute("qualitys",qualityRepository.findAll());
+            model.addAttribute("statuses",statusRepository.findAll());
+            return "event/editEvent";
+        }
+
     }
     @PostMapping("/editEvent")
     public String editEventPost(Model model,@ModelAttribute("event") Event event){
-            eventRepository.setEvent(event.getId(),event.getAdmin().getId(),event.getUser().getId(),
-                    event.getDescription(),event.getDate(),event.getComment(),
-                    event.getQuality().getId(),event.getStatus().getId());
-            return "event/listEvent";
-    }
+            eventRepository.save(event);
 
+            model.addAttribute("error","Data successfully edited");
+            return "log/log";
+    }
+    @PostMapping("/deleteEvent")
+    public String deleteEvent(Model model,@ModelAttribute("eventF") Event event){
+        if(eventRepository.findOne(event.getId())==null){
+            model.addAttribute("error","Incorrect data");
+            return "log/log";
+        }else{
+            eventRepository.delete(event.getId());
+            return "redirect:";
+        }
+
+
+    }
 }

@@ -11,10 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer> {
-    User findById(Integer id);
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE User u SET u.name=:name, u.address=:address WHERE u.id=:id", nativeQuery = true)
-    int setUser(@Param("id") Integer id,@Param("name") String name, @Param("address") String address);
-}
+    }

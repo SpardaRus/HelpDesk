@@ -15,7 +15,7 @@ public class AdminController {
     AdminRepository adminRepository;
 
 
-    @GetMapping("/view_admin")
+    @GetMapping
     public String view(Model model, @ModelAttribute("adminF") Admin adminF) {
         model.addAttribute("admins", adminRepository.findAll());
         model.addAttribute("admin",new Admin());
@@ -27,12 +27,13 @@ public class AdminController {
                            @ModelAttribute("adminF") Admin adminF,
                            @ModelAttribute("admins") Admin admins,
                            @ModelAttribute("admin") Admin admin){
-        model.addAttribute("admins", adminRepository.findAll());
-        model.addAttribute("admin",new Admin());
-        if(adminRepository.findById(adminF.getId())!=null){
-            adminF= adminRepository.findById(adminF.getId());
+
+        if(adminRepository.findOne(adminF.getId())!=null){
+            adminF= adminRepository.findOne(adminF.getId());
             model.addAttribute("adminF",adminF);
         }
+        model.addAttribute("admins", adminRepository.findAll());
+        model.addAttribute("admin",new Admin());
         return "admin/editAdmins";
     }
 
@@ -42,8 +43,8 @@ public class AdminController {
                            @ModelAttribute("admins") Admin admins,
                            @ModelAttribute("admin") Admin admin){
 
-        if(adminRepository.findById(adminF.getId())!=null){
-            adminRepository.setAdmin(adminF.getId(),adminF.getName());
+        if(adminRepository.findOne(adminF.getId())!=null){
+            adminRepository.save(adminF);
             model.addAttribute("adminF",adminF);
         }
         model.addAttribute("admins", adminRepository.findAll());
@@ -56,8 +57,8 @@ public class AdminController {
                               @ModelAttribute("admins") Admin admins,
                               @ModelAttribute("admin") Admin admin){
 
-        if(adminRepository.findById(adminF.getId())!=null){
-            adminF= adminRepository.findById(adminF.getId());
+        if(adminRepository.findOne(adminF.getId())!=null){
+            adminF= adminRepository.findOne(adminF.getId());
             adminRepository.delete(adminF.getId());
             model.addAttribute("adminF",adminF);
         }
@@ -73,10 +74,11 @@ public class AdminController {
 
         if (admin.getName() != null && admin.getName().length() > 0) {
             adminRepository.save(admin);
-            return "admin/addAdminOk";
+            model.addAttribute("error","Data successfully added");
         }else {
-            return "admin/addAdminError";
+            model.addAttribute("error","Name is required!");
         }
+        return "log/log";
     }
 
 }

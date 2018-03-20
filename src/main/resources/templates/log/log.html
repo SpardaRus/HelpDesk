@@ -18,7 +18,7 @@
 <body>
 <header>
     <span sec:authentication="name">Username</span>
-     Roles: <span sec:authentication="principal.authorities">Roles</span>
+    Roles: <span sec:authentication="principal.authorities">Roles</span>
     <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
         <button type="submit" >Logout</button>
     </form>
@@ -32,22 +32,21 @@
                 <h3>Menu</h3>
                 <ul>
                     <li><a th:href="@{/}">List event</a></li>
-                    <li><a href="/user/view_user">Users</a></li>
-                    <li><a href="/admin/view_admin">Admins</a></li>
+                    <li><a th:href="@{/user}">Users</a></li>
+                    <li><a th:href="@{/admin}">Admins</a></li>
+                    <li><a th:href="@{/quality}">Quality</a></li>
+                    <li><a th:href="@{/status}">Status</a></li>
                     <li><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
         <td width="85%">
-                        <div style="width: 800px;
+            <div style="width: 800px;
            margin: auto;">
-                            <fieldset>
-                                <legend>Add event</legend>
-                                <div>Fields must be filled!</div>
-                            </fieldset>
-                        </div>
-            <div align="center">
-                <a th:href="@{/addEvent}"><button>add event</button></a>
+                <fieldset>
+                    <legend>Log</legend>
+                    <div th:text="${error}">ERROR!</div>
+                </fieldset>
             </div>
         </td>
     </tr>

@@ -48,68 +48,69 @@
             </div>
         </td>
         <td width="85%">
-            <div align="center" style="margin: auto;
+<div align="center" style="margin: auto;
                     height: 50px;
                     width: 500px;">
-                <h1>Edit admins</h1>
-            </div>
+                <h1>Edit quality</h1>
+</div>
 
-            <div style="width: 500px;
+   <div style="width: 500px;
            margin: auto;">
-                <div align="left" >
-                    <table border="1" >
-                        <tr>
-                            <th width="40">id</th>
-                            <th width="200">name</th>
-                        </tr>
+   <div align="left" >
+    <table border="1" >
+                              <tr>
+                    <th width="40">id</th>
+                    <th width="200">name</th>
+                </tr>
 
-                    </table>
-                </div>
+            </table>
+             </div>
 
-                <div align="left" class="prokrutka">
-                    <table border="1" >
-                        <tr th:each="admins : ${admins}">
-                            <td width="40" th:text="${admins.id}"></td>
-                            <td width="200" th:text="${admins.name}"></td>
-                        </tr>
-                    </table>
-                </div>
+            <div align="left" class="prokrutka">
+            <table border="1" >
+                <tr th:each="statuss : ${statuss}">
+                    <td width="40" th:text="${statuss.id}"></td>
+                    <td width="200" th:text="${statuss.name}"></td>
+                </tr>
+            </table>
+            </div>
             </div>
 
 
-            <div class="size">
+<div class="size">
+          <fieldset>
+              <legend>Add status</legend>
+              <form th:action="@{/status/add_status}"  th:object="${status}" method="post">
+                  <div >
+                      <input type="text" id="name" th:field="*{name}" placeholder="status" />
+                  </div>
+                  <input type="submit" value="Create"/>
+              </form>
+          </fieldset>
+      </div>
+      <div class="size">
                 <fieldset>
-                    <legend>Add admin</legend>
-                    <form th:action="@{/admin/add_admin}"  th:object="${admin}" method="post">
-                        <div >
-                            <input type="text" id="name" th:field="*{name}" placeholder="Name" />
-                        </div>
-                        <input type="submit" value="Create"/>
-                    </form>
-                </fieldset>
-            </div>
-            <div class="size">
-                <fieldset>
-                    <legend>Edit/Delete admins</legend>
-                    <form name="e/d" action="#" th:action="@{/admin/find_admin}" th:object="${adminF}" method="POST">
+                    <legend>Edit/Delete status</legend>
+                    <form name="e/d" action="#" th:action="@{/status/find_status}"  th:object="${statusF}" method="POST">
                         <table>
                             <tr>
                                 <td>Id     :</td>
                                 <td>Name   :</td>
                             </tr>
                             <tr>
-                                <td><input type="text" id="id" th:field="*{id}"/></td>
-                                <td><input type="text" id="aname" th:field="*{name}"/></td>
+                                <td><input type="text" th:field="*{id}"/></td>
+                                <td><input type="text" th:field="*{name}"/></td>
                             </tr>
                             <tr>
-                                <td><input type="submit" value="Find"/></td>
-                                <td><input type="submit" value="Edit" formaction="edit_admin"/></td>
-                                <td><input type="submit" value="Delete" formaction="delete_admin"/></td>
+                                <td><input type="submit" value="Find" /></td>
+                                <td><input type="submit" value="Edit" formaction="edit_status"/></td>
+                                <td><input type="submit" value="Delete" formaction="delete_status"/></td>
                             </tr>
                         </table>
                     </form>
                 </fieldset>
             </div>
+
         </td>
     </tr>
 </table>
@@ -118,5 +119,5 @@
         <h2>Aleksey Yasakov</h2>
     </div>
 </footer>
- </body>
+</body>
 </html>

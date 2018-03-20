@@ -32,8 +32,10 @@
                 <h3>Menu</h3>
                 <ul>
                     <li><a th:href="@{/}">List event</a></li>
-                    <li><a href="/user/view_user">Users</a></li>
-                    <li><a href="/admin/view_admin">Admins</a></li>
+                    <li><a th:href="@{/user}">Users</a></li>
+                    <li><a th:href="@{/admin}">Admins</a></li>
+                    <li><a th:href="@{/quality}">Quality</a></li>
+                    <li><a th:href="@{/status}">Status</a></li>
                     <li><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
@@ -88,8 +90,18 @@
                             <form th:action="@{/editEvent}"  th:object="${eventF}" method="get">
                                 <div >
                                     <input type="text" id="id" th:field="*{id}" placeholder="id" />
+                                    <input type="submit" value="Edit"/>
                                 </div>
-                                <input type="submit" value="Edit"/>
+                            </form>
+                        </td>
+                        <td>
+
+                            <form th:action="@{/deleteEvent}"  th:object="${eventF}" method="post">
+                                <div >
+                                    <input type="text" id="did" th:field="*{id}" placeholder="id" />
+                                    <input type="submit" value="Delete"/>
+                                </div>
+
                             </form>
                         </td>
                     </tr>

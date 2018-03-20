@@ -20,7 +20,7 @@ public class UserController {
     UserRepository userRepository;
 
 
-    @RequestMapping("/view_user")
+    @GetMapping
     public String view(Model model,@ModelAttribute("userF") User userF) {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("user",new User());
@@ -28,14 +28,14 @@ public class UserController {
         model.addAttribute("userF",userF);
         return "user/editUsers";
     }
-    @RequestMapping(value = "/find_user", method = RequestMethod.POST)
+    @PostMapping("/find_user")
     public String findUser(Model model,
                            @ModelAttribute("userF") User userF,
                            @ModelAttribute("users") User users,
                            @ModelAttribute("user") User user){
 
-        if(userRepository.findById(userF.getId())!=null){
-            userF=userRepository.findById(userF.getId());
+        if(userRepository.findOne(userF.getId())!=null){
+            userF=userRepository.findOne(userF.getId());
             model.addAttribute("userF",userF);
         }
         model.addAttribute("users", userRepository.findAll());
@@ -49,8 +49,8 @@ public class UserController {
                              @ModelAttribute("users") User users,
                              @ModelAttribute("user") User user){
 
-        if(userRepository.findById(userF.getId())!=null){
-            userRepository.setUser(userF.getId(),userF.getName(),userF.getAddress());
+        if(userRepository.findOne(userF.getId())!=null){
+            userRepository.save(userF);
             model.addAttribute("userF",userF);
         }
         model.addAttribute("users", userRepository.findAll());
@@ -63,8 +63,8 @@ public class UserController {
                              @ModelAttribute("users") User users,
                              @ModelAttribute("user") User user){
 
-        if(userRepository.findById(userF.getId())!=null){
-            userF=userRepository.findById(userF.getId());
+        if(userRepository.findOne(userF.getId())!=null){
+            userF=userRepository.findOne(userF.getId());
             userRepository.delete(userF.getId());
             model.addAttribute("userF",userF);
         }
@@ -80,10 +80,11 @@ public class UserController {
         if (user.getName() != null && user.getName().length() > 0
                 && user.getAddress() != null && user.getAddress().length() > 0) {
             userRepository.save(user);
-            return "user/addUserOk";
+            model.addAttribute("error","Data successfully added");
         }else {
-            return "user/addUserError";
+            model.addAttribute("error","Name and Address is required!");
         }
+        return "log/log";
     }
 
 }
