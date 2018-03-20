@@ -34,10 +34,18 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String registration(
+    public String registration(Model model,
             @Valid @ModelAttribute("userForm") UserRegistrationForm userRegistrationForm,
             BindingResult bindingResult) {
-
+        if(     userRegistrationForm==null||
+                userRegistrationForm.getPassword()==null||
+                userRegistrationForm.getConfirmPassword()==null||
+                userRegistrationForm.getPassword().equals("")||
+                userRegistrationForm.getConfirmPassword().equals("")||
+                !userRegistrationForm.getPassword().equals(userRegistrationForm.getConfirmPassword())){
+            model.addAttribute("error","Incorrect data");
+            return "log/log";
+        }
         if (bindingResult.hasErrors()) {
             return "auth/registration";
         }
@@ -47,12 +55,12 @@ public class AuthController {
         user.setPassword(userRegistrationForm.getPassword());
 
         userService.signupUser(user);
-
-        return "redirect:/";
+        model.addAttribute("error","User successfully added");
+        return "log/log";
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
+    public String login() {
         return "auth/login";
     }
 
