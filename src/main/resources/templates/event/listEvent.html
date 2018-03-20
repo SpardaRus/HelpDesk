@@ -32,11 +32,11 @@
                 <h3>Menu</h3>
                 <ul>
                     <li><a th:href="@{/}">List event</a></li>
-                    <li><a th:href="@{/user}">Users</a></li>
-                    <li><a th:href="@{/admin}">Admins</a></li>
-                    <li><a th:href="@{/quality}">Quality</a></li>
-                    <li><a th:href="@{/status}">Status</a></li>
-                    <li><a th:href="@{/registration}">Registrations</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/user}">Users</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
@@ -53,13 +53,13 @@
                     <table border="1" >
                         <tr>
                             <th width="20">id</th>
-                            <th width="100">user.name</th>
-                            <th width="100">admin.name</th>
+                            <th width="100">user</th>
+                            <th width="100">admin</th>
                             <th width="100">description</th>
                             <th width="100">date</th>
                             <th width="100">comment</th>
-                            <th width="100">quality.name</th>
-                            <th width="100">status.name</th>
+                            <th width="100">quality</th>
+                            <th width="100">status</th>
                         </tr>
 
                     </table>
@@ -84,10 +84,17 @@
                 <table>
                     <tr>
                         <td width="300">
-                            <a th:href="@{/addEvent}"><button>add</button></a>
+                            <div
+                                    sec:authorize="hasRole('ROLE_SUPERADMIN')
+                                     or hasRole('ROLE_USER')">
+                                <a
+                                        th:href="@{/addEvent}"><button >add</button></a>
+                            </div>
+
                         </td>
                         <td width="300">
-                            <form th:action="@{/editEvent}"  th:object="${eventF}" method="get">
+                            <form
+                                   th:action="@{/editEvent}"  th:object="${eventF}" method="get">
                                 <div >
                                     <input type="text" id="id" th:field="*{id}" placeholder="id" />
                                     <input type="submit" value="Edit"/>
@@ -96,7 +103,8 @@
                         </td>
                         <td>
 
-                            <form th:action="@{/deleteEvent}"  th:object="${eventF}" method="post">
+                            <form sec:authorize="hasRole('ROLE_SUPERADMIN')"
+                                    th:action="@{/deleteEvent}"  th:object="${eventF}" method="post">
                                 <div >
                                     <input type="text" id="did" th:field="*{id}" placeholder="id" />
                                     <input type="submit" value="Delete"/>

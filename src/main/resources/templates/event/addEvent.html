@@ -32,11 +32,11 @@
                 <h3>Menu</h3>
                 <ul>
                     <li><a th:href="@{/}">List event</a></li>
-                    <li><a th:href="@{/user}">Users</a></li>
-                    <li><a th:href="@{/admin}">Admins</a></li>
-                    <li><a th:href="@{/quality}">Quality</a></li>
-                    <li><a th:href="@{/status}">Status</a></li>
-                    <li><a th:href="@{/registration}">Registrations</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/user}">Users</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>

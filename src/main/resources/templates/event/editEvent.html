@@ -32,92 +32,242 @@
                 <h3>Menu</h3>
                 <ul>
                     <li><a th:href="@{/}">List event</a></li>
-                    <li><a th:href="@{/user}">Users</a></li>
-                    <li><a th:href="@{/admin}">Admins</a></li>
-                    <li><a th:href="@{/quality}">Quality</a></li>
-                    <li><a th:href="@{/status}">Status</a></li>
-                    <li><a th:href="@{/registration}">Registrations</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/user}">Users</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
         <td width="85%">
             <div align="center">
 
-                <fieldset>
-                    <legend>Edit event</legend>
-                    <form th:action="@{/editEvent}"  th:object="${event}" method="post">
-                        <table>
-                            <tr>
-                                <td align="right" width="500">
-                                    <div>
-                                        User:
-                                    </div>
-                                    <div>
-                                        Admin:
-                                    </div>
-                                    <div>
-                                        Description:
-                                    </div>
-                                    <div>
-                                        Comment:
-                                    </div>
-                                    <div>
-                                        Quality:
-                                    </div>
-                                    <div>
-                                        Status:
-                                    </div>
-                                </td>
-                                <td width="500">
-                                    <div>
-                                        <select th:field="*{user}">
-                                            <option value=""> user </option>
-                                            <option th:each="users : ${users}"
-                                                    th:value="${users.id}"
-                                                    th:text="${users.name}"></option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <select th:field="*{admin}">
-                                            <option value=""> admin </option>
-                                            <option th:each="admins : ${admins}"
-                                                    th:value="${admins.id}"
-                                                    th:text="${admins.name}">Wireframe</option>
-                                        </select>
-                                    </div>
-                                    <div >
-                                        <input type="hidden" id="id" th:field="*{id}"/>
-                                        <input type="hidden" id="date" th:field="*{date}"/>
-                                    </div>
-                                    <div >
-                                        <input type="text" id="description" th:field="*{description}" placeholder="description" />
-                                    </div>
-                                    <div >
-                                        <input type="text" id="comment" th:field="*{comment}" placeholder="comment" />
-                                    </div>
-                                    <div>
-                                        <select th:field="*{quality}">
-                                            <option value=""> quality </option>
-                                            <option th:each="qualitys : ${qualitys}"
-                                                    th:value="${qualitys.id}"
-                                                    th:text="${qualitys.name}">Wireframe</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <select th:field="*{status}">
-                                            <option value=""> status </option>
-                                            <option th:each="statuses : ${statuses}"
-                                                    th:value="${statuses.id}"
-                                                    th:text="${statuses.name}">Wireframe</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                <div
+                        sec:authorize="hasRole('ROLE_SUPERADMIN')">
 
-                        <input type="submit" value="Edit"/>
-                    </form>
-                </fieldset>
+                    <fieldset>
+                        <legend>Edit event</legend>
+                        <form th:action="@{/editEvent}"  th:object="${event}" method="post">
+                            <table>
+                                <tr>
+                                    <td align="right" width="500">
+                                        <div>
+                                            User:
+                                        </div>
+                                        <div>
+                                            Admin:
+                                        </div>
+                                        <div>
+                                            Description:
+                                        </div>
+                                        <div>
+                                            Comment:
+                                        </div>
+                                        <div>
+                                            Quality:
+                                        </div>
+                                        <div>
+                                            Status:
+                                        </div>
+                                    </td>
+                                    <td width="500">
+                                        <div>
+                                            <select th:field="*{user}">
+                                                <option value=""> user </option>
+                                                <option th:each="users : ${users}"
+                                                        th:value="${users.id}"
+                                                        th:text="${users.name}"></option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select th:field="*{admin}">
+                                                <option value=""> admin </option>
+                                                <option th:each="admins : ${admins}"
+                                                        th:value="${admins.id}"
+                                                        th:text="${admins.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                        <div >
+                                            <input type="hidden" id="id" th:field="*{id}"/>
+                                            <input type="hidden" id="date" th:field="*{date}"/>
+
+                                        </div>
+                                        <div>
+                                            <input type="text" id="description" th:field="*{description}" placeholder="description" />
+                                        </div>
+                                        <div>
+                                            <input type="text" id="comment" th:field="*{comment}" placeholder="comment" />
+                                        </div>
+                                        <div>
+                                            <select th:field="*{quality}">
+                                                <option value=""> quality </option>
+                                                <option th:each="qualitys : ${qualitys}"
+                                                        th:value="${qualitys.id}"
+                                                        th:text="${qualitys.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select th:field="*{status}">
+                                                <option value=""> status </option>
+                                                <option th:each="statuses : ${statuses}"
+                                                        th:value="${statuses.id}"
+                                                        th:text="${statuses.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <input type="submit" value="Edit"/>
+                        </form>
+                    </fieldset>
+                </div>
+
+
+                <div
+                        sec:authorize="hasRole('ROLE_ADMIN')">
+
+                    <fieldset>
+                        <legend>Edit event</legend>
+                        <form th:action="@{/editEvent}"  th:object="${event}" method="post">
+                            <table>
+                                <tr>
+                                    <td align="right" width="500">
+
+                                        <div>
+                                            Comment:
+                                        </div>
+
+                                        <div>
+                                            Status:
+                                        </div>
+                                    </td>
+                                    <td width="500">
+                                        <div>
+                                            <select style="display: none;" th:field="*{user}">
+                                                <option value=""> user </option>
+                                                <option th:each="users : ${users}"
+                                                        th:value="${users.id}"
+                                                        th:text="${users.name}"></option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select style="display: none;" th:field="*{admin}">
+                                                <option value=""> admin </option>
+                                                <option th:each="admins : ${admins}"
+                                                        th:value="${admins.id}"
+                                                        th:text="${admins.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                        <div >
+                                            <input type="hidden" id="idA" th:field="*{id}"/>
+                                            <input type="hidden" id="dateA" th:field="*{date}"/>
+
+                                        </div>
+                                        <div>
+                                            <input type="hidden" id="descriptionA" th:field="*{description}" placeholder="description" />
+                                        </div>
+                                        <div>
+                                            <input type="text" id="commentA" th:field="*{comment}" placeholder="comment" />
+                                        </div>
+                                        <div>
+                                            <select style="display: none;" th:field="*{quality}">
+                                                <option value=""> quality </option>
+                                                <option th:each="qualitys : ${qualitys}"
+                                                        th:value="${qualitys.id}"
+                                                        th:text="${qualitys.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select th:field="*{status}">
+                                                <option value=""> status </option>
+                                                <option th:each="statuses : ${statuses}"
+                                                        th:value="${statuses.id}"
+                                                        th:text="${statuses.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <input type="submit" value="Edit"/>
+                        </form>
+                    </fieldset>
+                </div>
+
+                <div
+                        sec:authorize="hasRole('ROLE_USER')">
+
+                    <fieldset>
+                        <legend>Edit event</legend>
+                        <form th:action="@{/editEvent}"  th:object="${event}" method="post">
+                            <table>
+                                <tr>
+                                    <td align="right" width="500">
+                                        <div>
+                                            Description:
+                                        </div>
+                                        <div>
+                                            Quality:
+                                        </div>
+
+                                    </td>
+                                    <td width="500">
+                                        <div>
+                                            <select style="display: none;" th:field="*{user}">
+                                                <option value=""> user </option>
+                                                <option th:each="users : ${users}"
+                                                        th:value="${users.id}"
+                                                        th:text="${users.name}"></option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select style="display: none;" th:field="*{admin}">
+                                                <option value=""> admin </option>
+                                                <option th:each="admins : ${admins}"
+                                                        th:value="${admins.id}"
+                                                        th:text="${admins.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                        <div >
+                                            <input type="hidden" id="idU" th:field="*{id}"/>
+                                            <input type="hidden" id="dateU" th:field="*{date}"/>
+
+                                        </div>
+                                        <div>
+                                            <input type="text" id="descriptionU" th:field="*{description}" placeholder="description" />
+                                        </div>
+                                        <div>
+                                            <input type="hidden" id="commentU" th:field="*{comment}" placeholder="comment" />
+                                        </div>
+                                        <div>
+                                            <select th:field="*{quality}">
+                                                <option value=""> quality </option>
+                                                <option th:each="qualitys : ${qualitys}"
+                                                        th:value="${qualitys.id}"
+                                                        th:text="${qualitys.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select style="display: none;" th:field="*{status}">
+                                                <option value=""> status </option>
+                                                <option th:each="statuses : ${statuses}"
+                                                        th:value="${statuses.id}"
+                                                        th:text="${statuses.name}">Wireframe</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <input type="submit" value="Edit"/>
+                        </form>
+                    </fieldset>
+                </div>
+
+
+
             </div>
         </td>
     </tr>
