@@ -36,7 +36,6 @@
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
@@ -73,8 +72,8 @@
                                     </td>
                                     <td width="500">
                                         <div>
-                                            <select th:field="*{user}">
-                                                <option value=""> user </option>
+                                            <select th:field="*{admin}">
+                                                <option value=""> admin </option>
                                                 <option th:each="users : ${users}"
                                                         th:value="${users.id}"
                                                         th:text="${users.name}"></option>
@@ -145,8 +144,8 @@
                                     </td>
                                     <td width="500">
                                         <div>
-                                            <select style="display: none;" th:field="*{user}">
-                                                <option value=""> user </option>
+                                            <select style="display: none;" th:field="*{admin}">
+                                                <option value=""> admin </option>
                                                 <option th:each="users : ${users}"
                                                         th:value="${users.id}"
                                                         th:text="${users.name}"></option>
@@ -215,8 +214,8 @@
                                     </td>
                                     <td width="500">
                                         <div>
-                                            <select style="display: none;" th:field="*{user}">
-                                                <option value=""> user </option>
+                                            <select style="display: none;" th:field="*{admin}">
+                                                <option value=""> admin </option>
                                                 <option th:each="users : ${users}"
                                                         th:value="${users.id}"
                                                         th:text="${users.name}"></option>

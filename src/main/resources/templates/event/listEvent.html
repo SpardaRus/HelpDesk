@@ -36,7 +36,6 @@
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
@@ -53,7 +52,7 @@
                     <table border="1" >
                         <tr>
                             <th width="20">id</th>
-                            <th width="100">user</th>
+                            <th width="100">admin</th>
                             <th width="100">admin</th>
                             <th width="100">description</th>
                             <th width="100">date</th>
@@ -69,7 +68,7 @@
                     <table border="1" >
                         <tr th:each="event : ${events}">
                             <td width="20" th:text="${event.id}"></td>
-                            <td width="100" th:text="${event.user.name}"></td>
+                            <td width="100" th:text="${event.admin.name}"></td>
                             <td width="100" th:text="${event.admin.name}"></td>
                             <td width="100" th:text="${event.description}"></td>
                             <td width="100" th:text="${event.date}"></td>

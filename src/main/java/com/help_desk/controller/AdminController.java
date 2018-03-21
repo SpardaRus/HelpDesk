@@ -1,7 +1,14 @@
 package com.help_desk.controller;
 
+import com.help_desk.controller.form.AdminRegistrationForm;
+import com.help_desk.controller.form.UserRegistrationForm;
 import com.help_desk.entity.Admin;
+import com.help_desk.entity.User;
+import com.help_desk.entity.UserSecurity;
 import com.help_desk.repository.AdminRepository;
+import com.help_desk.repository.RoleRepository;
+import com.help_desk.repository.UserSecurityRepository;
+import com.help_desk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +17,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
-
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    UserSecurityRepository userSecurityRepository;
+    @Autowired
+    private UserService userService;
     @Autowired
     AdminRepository adminRepository;
 
@@ -18,44 +30,38 @@ public class AdminController {
     @GetMapping
     public String view(Model model, @ModelAttribute("adminF") Admin adminF) {
         model.addAttribute("admins", adminRepository.findAll());
-        model.addAttribute("admin",new Admin());
+        model.addAttribute("adminForm",new AdminRegistrationForm());
         model.addAttribute("adminF",adminF);
         return "admin/editAdmins";
     }
     @PostMapping("/find_admin")
     public String findAdmin(Model model,
-                           @ModelAttribute("adminF") Admin adminF,
-                           @ModelAttribute("admins") Admin admins,
-                           @ModelAttribute("admin") Admin admin){
+                           @ModelAttribute("adminF") Admin adminF){
 
         if(adminRepository.findOne(adminF.getId())!=null){
             adminF= adminRepository.findOne(adminF.getId());
             model.addAttribute("adminF",adminF);
         }
         model.addAttribute("admins", adminRepository.findAll());
-        model.addAttribute("admin",new Admin());
+        model.addAttribute("adminForm",new AdminRegistrationForm());
         return "admin/editAdmins";
     }
 
     @RequestMapping(value = "/edit_admin", method = RequestMethod.POST)
     public String editAdmin(Model model,
-                           @ModelAttribute("adminF") Admin adminF,
-                           @ModelAttribute("admins") Admin admins,
-                           @ModelAttribute("admin") Admin admin){
+                           @ModelAttribute("adminF") Admin adminF){
 
         if(adminRepository.findOne(adminF.getId())!=null){
             adminRepository.save(adminF);
             model.addAttribute("adminF",adminF);
         }
         model.addAttribute("admins", adminRepository.findAll());
-        model.addAttribute("admin",new Admin());
+        model.addAttribute("adminForm",new AdminRegistrationForm());
         return "admin/editAdmins";
     }
     @RequestMapping(value = "/delete_admin", method = RequestMethod.POST)
     public String deleteAdmin(Model model,
-                              @ModelAttribute("adminF") Admin adminF,
-                              @ModelAttribute("admins") Admin admins,
-                              @ModelAttribute("admin") Admin admin){
+                              @ModelAttribute("adminF") Admin adminF){
 
         if(adminRepository.findOne(adminF.getId())!=null){
             adminF= adminRepository.findOne(adminF.getId());
@@ -63,15 +69,21 @@ public class AdminController {
             model.addAttribute("adminF",adminF);
         }
         model.addAttribute("admins", adminRepository.findAll());
-        model.addAttribute("admin",new Admin());
+        model.addAttribute("adminForm",new AdminRegistrationForm());
         return "admin/editAdmins";
     }
     @RequestMapping(value = "/add_admin", method = RequestMethod.POST)
     public String addAdmin(Model model,
-                            @ModelAttribute("adminF") Admin adminF,
-                            @ModelAttribute("admins") Admin admins,
-                            @ModelAttribute("admin") Admin admin) {
+                           @ModelAttribute("adminForm") AdminRegistrationForm adminForm) {
+        UserSecurity userUP = new UserSecurity();
+        userUP.setUsername(adminForm.getUsername());
+        userUP.setPassword(adminForm.getPassword());
 
+        userService.signupUser(userUP);
+
+
+        Admin admin=new Admin(adminForm.getAdmin().getName(),
+        userSecurityRepository.findByUsername(adminForm.getUsername()).getId());
         if (admin.getName() != null && admin.getName().length() > 0) {
             adminRepository.save(admin);
             model.addAttribute("error","Data successfully added");

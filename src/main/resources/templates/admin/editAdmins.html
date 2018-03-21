@@ -43,7 +43,6 @@
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/registration}">Registrations</a></li>
                 </ul>
             </div>
         </td>
@@ -77,16 +76,52 @@
             </div>
 
 
-            <div class="size">
+            <div style="width: 500px; margin: auto;" >
                 <fieldset>
                     <legend>Add admin</legend>
-                    <form th:action="@{/admin/add_admin}"  th:object="${admin}" method="post">
-                        <div >
-                            <input type="text" id="name" th:field="*{name}" placeholder="Name" />
-                        </div>
-                        <input type="submit" value="Create"/>
+                    <form th:action="@{/admin/add_admin}"  th:object="${adminForm}" method="post">
+                        <table>
+
+                            <tr>
+                                <td align="right" width="100">
+                                    <div style="height: 30px">
+                                        Admin name:
+                                    </div>
+                                    <div style="height: 30px">
+                                        Login:
+                                    </div>
+                                    <div style="height: 30px">
+                                        Password:
+                                    </div>
+                                    <div style="height: 30px">
+                                        ConfirmPassword:
+                                    </div>
+                                </td>
+                                <td align="left" width="100">
+                                    <div >
+                                        <input type="text" id="name" th:field="*{admin.name}" placeholder="Name" />
+                                    </div>
+                                    <div>
+                                        <input type="text" id="username" th:field="*{username}" placeholder="Username" />
+                                    </div>
+                                    <div>
+                                        <input type="password" th:field="*{password}" id="password" placeholder="Password" />
+                                    </div>
+                                    <div>
+                                        <input type="password" th:field="*{confirmPassword}" id="confirmPassword" placeholder="Confirm Password" />
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        <input  type="submit" value="Create"/>
                     </form>
                 </fieldset>
+
+
+
             </div>
             <div class="size">
                 <fieldset>
@@ -100,6 +135,7 @@
                             <tr>
                                 <td><input type="text" id="id" th:field="*{id}"/></td>
                                 <td><input type="text" id="aname" th:field="*{name}"/></td>
+                                <td><input type="hidden" th:field="*{id_auth}"/></td>
                             </tr>
                             <tr>
                                 <td><input type="submit" value="Find"/></td>

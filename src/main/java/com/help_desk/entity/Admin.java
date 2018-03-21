@@ -15,7 +15,21 @@ public class Admin{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
+    private int id_auth;
 
+    public Admin(String name, int id_auth) {
+        this.name = name;
+        this.id_auth = id_auth;
+    }
+
+    public int getId_auth() {
+
+        return id_auth;
+    }
+
+    public void setId_auth(int id_auth) {
+        this.id_auth = id_auth;
+    }
 
     public Admin() {
     }

@@ -13,7 +13,7 @@ public class UserSecurity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true)
     private String username;
@@ -26,11 +26,11 @@ public class UserSecurity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name="id_role"))
     private Set<Role> roles;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,20 +1,20 @@
 package com.help_desk.controller.form;
 
-import com.help_desk.entity.User;
+import com.help_desk.entity.Admin;
 
-public class UserRegistrationForm {
+public class AdminRegistrationForm {
 
     private String username;
     private String password;
     private String confirmPassword;
-    private User user;
+    private Admin admin;
 
-    public User getUser() {
-        return user;
+    public Admin getAdmin() {
+        return admin;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 
     public String getUsername() {

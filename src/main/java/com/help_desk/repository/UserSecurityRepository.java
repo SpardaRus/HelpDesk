@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserSecurityRepository extends CrudRepository<UserSecurity, Long> {
+public interface UserSecurityRepository extends CrudRepository<UserSecurity, Integer> {
 
     UserSecurity findByUsername(String username);
 }

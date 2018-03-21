@@ -20,6 +20,20 @@ html, body {
 	padding:0px;
 }
 
+
+button, input {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  color: #ffffff;
+  background: #000000;
+  padding: 5px 10px 5px 10px;
+}
+
+button:hover {
+  background: #636363;
+}
+
 .category-wrap {
 	position: relative;
   padding: 15px;
