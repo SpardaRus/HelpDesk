@@ -8,7 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.beans.Transient;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer> {
+
+    @Query(value = "select * from user u where u.id_auth=:id_auth",nativeQuery = true)
+    User findById_auth(@Param("id_auth") int id_auth);
     }

@@ -3,6 +3,7 @@ package com.help_desk.controller;
 import com.help_desk.controller.form.AdminRegistrationForm;
 import com.help_desk.controller.form.UserRegistrationForm;
 import com.help_desk.entity.Admin;
+import com.help_desk.entity.Role;
 import com.help_desk.entity.User;
 import com.help_desk.entity.UserSecurity;
 import com.help_desk.repository.AdminRepository;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @RequestMapping("/admin")
 @Controller
@@ -78,7 +82,6 @@ public class AdminController {
         UserSecurity userUP = new UserSecurity();
         userUP.setUsername(adminForm.getUsername());
         userUP.setPassword(adminForm.getPassword());
-
         userService.signupUser(userUP);
 
 

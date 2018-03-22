@@ -1,0 +1,33 @@
+INSERT INTO ADMIN (ID, NAME,ID_AUTH) VALUES
+    (1,'Shon',1);
+
+INSERT INTO USER (ID, NAME, ADDRESS, ID_AUTH) VALUES
+    (1,'Greg','N104',1);
+
+INSERT INTO QUALITY (ID, NAME) VALUES
+    (1,'BAD'),
+    (2,'MORMAL'),
+    (3,'GOOD');
+
+INSERT INTO STATUS (ID, NAME) VALUES
+    (1,'WORK'),
+    (2,'WAIT'),
+    (3,'DONE');
+
+INSERT INTO EVENT(ID_USER, ID_ADMIN, DESCRIPTION, DATE, COMMENT, ID_QUALITY, ID_STATUS) VALUES
+    (1, 1, 'dont work mouse', '2018-03-22', 'plug in', 1, 1);
+
+INSERT INTO ROLE (ID, NAME , AUTHORITY) VALUES
+  (1, 'user', 'ROLE_USER'),
+  (2, 'admin', 'ROLE_ADMIN'),
+  (3, 'superadmin', 'ROLE_SUPERADMIN');
+
+INSERT INTO USERS (ID, USERNAME, PASSWORD) VALUES
+    (1,'user','$2a$10$nYOEzE1HJzi4E2vYpwuNF.kZTS38amb/FDCsvvY2y0byqRIA0lhmi'),
+    (2,'admin','$2a$10$9eOIaFtzFIHJ69WslgrjieXUyPQz6F6T6SEp5vR0ZdkUHhw0mFoHK'),
+    (3,'superadmin','$2a$10$VuIxPvtKjopR6U2uYgud7OvhHCdo8/K0xQC8J8OifRA.wGPvp8SQ.');
+
+INSERT INTO ROLE_ASSIGNMENTS (ID_USER, ID_ROLE) VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3);

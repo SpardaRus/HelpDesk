@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**","/editEvent","/").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/addEvent").access("hasRole('ROLE_USER')")
+                .antMatchers("/addEvent").access("hasRole('ROLE_USER') or hasRole('ROLE_SUPERADMIN')")
                 .antMatchers("/**").access("hasRole('ROLE_SUPERADMIN')")
                 .anyRequest().authenticated()
                 .and()

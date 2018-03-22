@@ -3,6 +3,7 @@ package com.help_desk.controller;
 import com.help_desk.entity.*;
 import com.help_desk.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,6 +66,9 @@ public class EventController {
             Date date = new Date();
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
             event.setDate(""+formatForDateNow.format(date));
+            UserSecurity userSecurity = (UserSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            event.setUser(userRepository.findById_auth(userSecurity.getId()));
             eventRepository.save(event);
             model.addAttribute("error","Successfully added");
         }else{
