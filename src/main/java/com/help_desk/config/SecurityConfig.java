@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 //        http.csrf().disable();
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         http
                 .authorizeRequests()
                 .antMatchers("/resources/**","/editEvent","/").permitAll()
