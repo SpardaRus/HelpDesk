@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
 
     UserSecurity signupUser(UserSecurity user);
+    UserSecurity signupUser(UserSecurity user, Long role);
 
     UserSecurity getCurrentUser();
 

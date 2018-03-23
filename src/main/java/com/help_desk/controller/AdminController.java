@@ -15,8 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @RequestMapping("/admin")
 @Controller
@@ -69,7 +68,12 @@ public class AdminController {
 
         if(adminRepository.findOne(adminF.getId())!=null){
             adminF= adminRepository.findOne(adminF.getId());
-            adminRepository.delete(adminF.getId());
+            try {
+                adminRepository.delete(adminF.getId());
+            } catch (Exception e) {
+                model.addAttribute("error","The last line is not deleted");
+                return "log/log";
+            }
             model.addAttribute("adminF",adminF);
         }
         model.addAttribute("admins", adminRepository.findAll());
@@ -79,10 +83,20 @@ public class AdminController {
     @RequestMapping(value = "/add_admin", method = RequestMethod.POST)
     public String addAdmin(Model model,
                            @ModelAttribute("adminForm") AdminRegistrationForm adminForm) {
+        if(     adminForm==null||
+                adminForm.getUsername()==null||
+                adminForm.getPassword()==null||
+                adminForm.getConfirmPassword()==null||
+                adminForm.getPassword().equals("")||
+                adminForm.getConfirmPassword().equals("")||
+                !adminForm.getPassword().equals(adminForm.getConfirmPassword())){
+            model.addAttribute("error","Incorrect data");
+            return "log/log";
+        }
         UserSecurity userUP = new UserSecurity();
         userUP.setUsername(adminForm.getUsername());
         userUP.setPassword(adminForm.getPassword());
-        userService.signupUser(userUP);
+        userService.signupUser(userUP, 2L);
 
 
         Admin admin=new Admin(adminForm.getAdmin().getName(),

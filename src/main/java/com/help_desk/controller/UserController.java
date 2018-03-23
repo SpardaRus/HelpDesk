@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RequestMapping("/user")
@@ -69,11 +70,19 @@ public class UserController {
     public String deleteUser(Model model,
                              @ModelAttribute("userF") User userF){
 
-        if(userRepository.findOne(userF.getId())!=null){
-            userF=userRepository.findOne(userF.getId());
-            userRepository.delete(userF.getId());
+        if(userRepository.findOne(userF.getId())!=null) {
+            userF = userRepository.findOne(userF.getId());
+
+
+            try {
+                userRepository.delete(userF.getId());
+            } catch (Exception e) {
+                model.addAttribute("error","The last line is not deleted");
+                return "log/log";
+            }
             model.addAttribute("userF",userF);
         }
+
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("userForm",new UserRegistrationForm());
         return "user/editUsers";
@@ -83,6 +92,7 @@ public class UserController {
                            @ModelAttribute("userForm") UserRegistrationForm userForm) {
 
         if(     userForm==null||
+                userForm.getUsername()==null||
                 userForm.getPassword()==null||
                 userForm.getConfirmPassword()==null||
                 userForm.getPassword().equals("")||

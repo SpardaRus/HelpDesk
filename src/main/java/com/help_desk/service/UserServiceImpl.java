@@ -46,6 +46,13 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Collections.singleton(userRole));
         return userRepository.save(user);
     }
+    @Override
+    public UserSecurity signupUser(UserSecurity user, Long role) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role userRole = roleRepository.findOne(role);
+        user.setRoles(Collections.singleton(userRole));
+        return userRepository.save(user);
+    }
 
     @Override
     public UserSecurity getCurrentUser() {
