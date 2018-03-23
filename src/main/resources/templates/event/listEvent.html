@@ -96,6 +96,7 @@
                                    th:action="@{/editEvent}"  th:object="${eventF}" method="get">
                                 <div >
                                     <input type="text" id="id" th:field="*{id}" placeholder="id" />
+                        <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</div>
                                     <input type="submit" value="Edit"/>
                                 </div>
                             </form>

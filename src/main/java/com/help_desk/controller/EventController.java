@@ -7,11 +7,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,7 +80,19 @@ public class EventController {
         return "log/log";
     }
     @GetMapping("/editEvent")
-    public String editEvent(Model model,@ModelAttribute("eventF") Event event){
+    public String editEvent(Model model,
+                            @Valid
+                            @ModelAttribute("eventF") Event event,
+                            BindingResult bindingResult){
+        if (bindingResult.hasErrors()||event.getId()==null) {
+            model.addAttribute("event",event);
+            model.addAttribute("users",userRepository.findAll());
+            model.addAttribute("admins",adminRepository.findAll());
+            model.addAttribute("qualitys",qualityRepository.findAll());
+            model.addAttribute("statuses",statusRepository.findAll());
+            return "event/listEvent";
+        }
+
         if(eventRepository.findOne(event.getId())==null){
             model.addAttribute("error","Incorrect data");
             return "log/log";
