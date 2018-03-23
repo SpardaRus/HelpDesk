@@ -104,8 +104,14 @@ public class UserController {
         UserSecurity userUP = new UserSecurity();
         userUP.setUsername(userForm.getUsername());
         userUP.setPassword(userForm.getPassword());
+        try{
+            userService.signupUser(userUP);
+        }catch(Exception e){
+            userSecurityRepository.delete(userUP);
+            model.addAttribute("error","The Login must be unique");
+            return "log/log";
+        }
 
-        userService.signupUser(userUP);
 
 
         User user=new User(userForm.getUser().getName(),userForm.getUser().getAddress(),

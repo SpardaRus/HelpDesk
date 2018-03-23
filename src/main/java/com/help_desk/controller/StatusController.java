@@ -58,9 +58,16 @@ public class StatusController {
                                @ModelAttribute("statuss") Status statuss,
                                @ModelAttribute("status") Status status){
 
-        if(statusRepository.findOne(statusF.getId())!=null){
-            statusF= statusRepository.findOne(statusF.getId());
-            statusRepository.delete(statusF.getId());
+        if(statusRepository.findOne(statusF.getId())!=null) {
+            statusF = statusRepository.findOne(statusF.getId());
+
+
+            try {
+                statusRepository.delete(statusF.getId());
+            } catch (Exception e) {
+                model.addAttribute("error","The last line is not deleted");
+                return "log/log";
+            }
             model.addAttribute("statusF",statusF);
         }
         model.addAttribute("statuss", statusRepository.findAll());

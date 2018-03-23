@@ -96,8 +96,12 @@ public class AdminController {
         UserSecurity userUP = new UserSecurity();
         userUP.setUsername(adminForm.getUsername());
         userUP.setPassword(adminForm.getPassword());
-        userService.signupUser(userUP, 2L);
-
+        try{
+            userService.signupUser(userUP,2L);
+        }catch(Exception e){
+            model.addAttribute("error","The Login must be unique");
+            return "log/log";
+        }
 
         Admin admin=new Admin(adminForm.getAdmin().getName(),
         userSecurityRepository.findByUsername(adminForm.getUsername()).getId());
@@ -105,6 +109,7 @@ public class AdminController {
             adminRepository.save(admin);
             model.addAttribute("error","Data successfully added");
         }else {
+            userSecurityRepository.delete(userUP);
             model.addAttribute("error","Name is required!");
         }
         return "log/log";

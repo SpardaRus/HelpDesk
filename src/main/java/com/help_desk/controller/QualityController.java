@@ -54,11 +54,15 @@ public class QualityController {
                               @ModelAttribute("qualityF") Quality qualityF,
                               @ModelAttribute("qualitys") Quality qualitys,
                               @ModelAttribute("quality") Quality quality){
-
-        if(qualityRepository.findOne(qualityF.getId())!=null){
-            qualityF= qualityRepository.findOne(qualityF.getId());
-            qualityRepository.delete(qualityF.getId());
-            model.addAttribute("qualityF",qualityF);
+        if(qualityRepository.findOne(qualityF.getId())!=null) {
+            qualityF = qualityRepository.findOne(qualityF.getId());
+            try {
+                qualityRepository.delete(qualityF.getId());
+            } catch (Exception e) {
+                model.addAttribute("error","The last line is not deleted");
+                return "log/log";
+            }
+            model.addAttribute("statusF",qualityF);
         }
         model.addAttribute("qualitys", qualityRepository.findAll());
         model.addAttribute("quality",new Quality());
