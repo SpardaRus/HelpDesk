@@ -19,7 +19,7 @@ public class AuthController {
     @GetMapping("/403")
     public String error403(Model model) {
         model.addAttribute("error","Access Denied");
-        return "error/error";
+        return "log/error";
     }
 
 
