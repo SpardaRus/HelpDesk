@@ -36,6 +36,7 @@
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
                     <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN') or hasRole('ROLE_ADMIN')"><a th:href="@{/personal}">Personal</a></li>
                 </ul>
             </div>
         </td>

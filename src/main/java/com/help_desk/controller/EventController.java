@@ -58,6 +58,42 @@ public class EventController {
         model.addAttribute("eventF", new Event());
         return "event/listEvent";
     }
+    @GetMapping("/personal")
+    public String listEventPersonal(Model model){
+        Iterable<Event> events;
+        events=eventRepository.findByOrderByIdDesc();
+        ArrayList<Event> eventArrayList=new ArrayList<>();
+        UserSecurity userSecurity = (UserSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        for(Event e:events){
+            if(e.getAdmin()!=null&&
+                            e.getAdmin().getId_auth()==userSecurity.getId())
+
+
+                {
+                    if(!e.equals(null)){
+                        if(e.getAdmin()==null){
+                            e.setAdmin(new Admin());
+                        }
+                        if(e.getUser()==null){
+                            e.setUser(new User());
+                        }
+                        if(e.getQuality()==null){
+                            e.setQuality(new Quality());
+                        }
+                        if(e.getStatus()==null){
+                            e.setStatus(new Status());
+                        }
+                    }
+                eventArrayList.add(e);
+            }
+
+
+        }
+        model.addAttribute("events", eventArrayList);
+        model.addAttribute("eventF", new Event());
+        return "event/listEvent";
+    }
     @GetMapping("/addEvent")
     public String addEvent(Model model){
         model.addAttribute("event",new Event());
