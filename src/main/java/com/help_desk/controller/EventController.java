@@ -3,6 +3,7 @@ package com.help_desk.controller;
 import com.help_desk.entity.*;
 import com.help_desk.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,6 +84,15 @@ public class EventController {
             return "log/log";
         }else{
             event=eventRepository.findOne(event.getId());
+            UserSecurity userSecurity = (UserSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            if((!userSecurity.getUsername().equals("superadmin"))&&
+                    (event.getAdmin()==null||
+                    event.getAdmin().getId_auth()!=userSecurity.getId())){
+
+                model.addAttribute("error","This event is not yours");
+                return "log/log";
+            }
             model.addAttribute("event",event);
             model.addAttribute("users",userRepository.findAll());
             model.addAttribute("admins",adminRepository.findAll());

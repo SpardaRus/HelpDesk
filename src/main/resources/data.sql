@@ -1,5 +1,5 @@
 INSERT INTO ADMIN (ID, NAME,ID_AUTH) VALUES
-    (1,'Shon',1);
+    (1,'Shon',2);
 
 INSERT INTO USER (ID, NAME, ADDRESS, ID_AUTH) VALUES
     (1,'Greg','N104',1);
