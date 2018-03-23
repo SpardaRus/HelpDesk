@@ -109,6 +109,7 @@
                                     th:action="@{/deleteEvent}"  th:object="${eventF}" method="post">
                                 <div >
                                     <input type="text" id="did" th:field="*{id}" placeholder="id" />
+                                    <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</div>
                                     <input type="submit" value="Delete"/>
                                 </div>
 

@@ -5,7 +5,10 @@ import com.help_desk.repository.QualityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/quality")
 @Controller
@@ -23,9 +26,12 @@ public class QualityController {
     }
     @PostMapping("/find_quality")
     public String findQuality(Model model,
-                            @ModelAttribute("qualityF") Quality qualityF,
-                            @ModelAttribute("qualitys") Quality qualitys,
-                            @ModelAttribute("quality") Quality quality){
+                              @Valid
+                              @ModelAttribute("qualityF") Quality qualityF,
+                            BindingResult bindingResult){
+            if (bindingResult.hasErrors()) {
+                return "redirect:  ";
+            }
         model.addAttribute("qualitys", qualityRepository.findAll());
         model.addAttribute("quality",new Quality());
         if(qualityRepository.findOne(qualityF.getId())!=null){
@@ -37,10 +43,12 @@ public class QualityController {
 
     @RequestMapping(value = "/edit_quality", method = RequestMethod.POST)
     public String editQuality(Model model,
-                            @ModelAttribute("qualityF") Quality qualityF,
-                            @ModelAttribute("qualitys") Quality qualitys,
-                            @ModelAttribute("quality") Quality quality){
-
+                              @Valid
+                              @ModelAttribute("qualityF") Quality qualityF,
+                              BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(qualityRepository.findOne(qualityF.getId())!=null){
             qualityRepository.save(qualityF);
             model.addAttribute("qualityF",qualityF);
@@ -51,9 +59,12 @@ public class QualityController {
     }
     @RequestMapping(value = "/delete_quality", method = RequestMethod.POST)
     public String deleteQuality(Model model,
-                              @ModelAttribute("qualityF") Quality qualityF,
-                              @ModelAttribute("qualitys") Quality qualitys,
-                              @ModelAttribute("quality") Quality quality){
+                                @Valid
+                                @ModelAttribute("qualityF") Quality qualityF,
+                                BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(qualityRepository.findOne(qualityF.getId())!=null) {
             qualityF = qualityRepository.findOne(qualityF.getId());
             try {
@@ -70,8 +81,6 @@ public class QualityController {
     }
     @RequestMapping(value = "/add_quality", method = RequestMethod.POST)
     public String addQuality(Model model,
-                           @ModelAttribute("qualityF") Quality qualityF,
-                           @ModelAttribute("qualitys") Quality qualitys,
                            @ModelAttribute("quality") Quality quality){
 
         if (quality.getName() != null && quality.getName().length() > 0) {

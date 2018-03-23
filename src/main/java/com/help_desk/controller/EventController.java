@@ -85,12 +85,7 @@ public class EventController {
                             @ModelAttribute("eventF") Event event,
                             BindingResult bindingResult){
         if (bindingResult.hasErrors()||event.getId()==null) {
-            model.addAttribute("event",event);
-            model.addAttribute("users",userRepository.findAll());
-            model.addAttribute("admins",adminRepository.findAll());
-            model.addAttribute("qualitys",qualityRepository.findAll());
-            model.addAttribute("statuses",statusRepository.findAll());
-            return "event/listEvent";
+            return "redirect: ";
         }
 
         if(eventRepository.findOne(event.getId())==null){
@@ -124,7 +119,13 @@ public class EventController {
             return "log/log";
     }
     @PostMapping("/deleteEvent")
-    public String deleteEvent(Model model,@ModelAttribute("eventF") Event event){
+    public String deleteEvent(Model model,
+                              @Valid
+                              @ModelAttribute("eventF") Event event,
+                              BindingResult bindingResult){
+        if (bindingResult.hasErrors()||event.getId()==null) {
+            return "redirect: ";
+        }
         if(eventRepository.findOne(event.getId())==null){
             model.addAttribute("error","Incorrect data");
             return "log/log";

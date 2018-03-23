@@ -14,10 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,8 +45,12 @@ public class UserController {
     }
     @PostMapping("/find_user")
     public String findUser(Model model,
-                           @ModelAttribute("userF") User userF){
-
+                           @Valid
+                           @ModelAttribute("userF") User userF,
+                           BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(userRepository.findOne(userF.getId())!=null){
             userF=userRepository.findOne(userF.getId());
             model.addAttribute("userF",userF);
@@ -56,8 +62,12 @@ public class UserController {
 
     @RequestMapping(value = "/edit_user", method = RequestMethod.POST)
     public String editUser(Model model,
-                             @ModelAttribute("userF") User userF){
-
+                           @Valid
+                           @ModelAttribute("userF") User userF,
+                           BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(userRepository.findOne(userF.getId())!=null){
             userRepository.save(userF);
             model.addAttribute("userF",userF);
@@ -68,8 +78,12 @@ public class UserController {
     }
     @RequestMapping(value = "/delete_user", method = RequestMethod.POST)
     public String deleteUser(Model model,
-                             @ModelAttribute("userF") User userF){
-
+                             @Valid
+                             @ModelAttribute("userF") User userF,
+                             BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(userRepository.findOne(userF.getId())!=null) {
             userF = userRepository.findOne(userF.getId());
 

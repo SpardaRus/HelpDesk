@@ -7,7 +7,10 @@ import com.help_desk.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/status")
 @Controller
@@ -25,10 +28,12 @@ public class StatusController {
     }
     @PostMapping("/find_status")
     public String findStatus(Model model,
+                             @Valid
                              @ModelAttribute("statusF") Status statusF,
-                             @ModelAttribute("statuss") Status statuss,
-                             @ModelAttribute("status") Status status){
-
+                             BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(statusRepository.findOne(statusF.getId())!=null){
             statusF= statusRepository.findOne(statusF.getId());
             model.addAttribute("statusF",statusF);
@@ -40,10 +45,12 @@ public class StatusController {
 
     @RequestMapping(value = "/edit_status", method = RequestMethod.POST)
     public String editStatus(Model model,
+                             @Valid
                              @ModelAttribute("statusF") Status statusF,
-                             @ModelAttribute("statuss") Status statuss,
-                             @ModelAttribute("status") Status status){
-
+                             BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(statusRepository.findOne(statusF.getId())!=null){
             statusRepository.save(statusF);
             model.addAttribute("statusF",statusF);
@@ -54,10 +61,12 @@ public class StatusController {
     }
     @RequestMapping(value = "/delete_status", method = RequestMethod.POST)
     public String deleteStatus(Model model,
+                               @Valid
                                @ModelAttribute("statusF") Status statusF,
-                               @ModelAttribute("statuss") Status statuss,
-                               @ModelAttribute("status") Status status){
-
+                               BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "redirect:  ";
+        }
         if(statusRepository.findOne(statusF.getId())!=null) {
             statusF = statusRepository.findOne(statusF.getId());
 
