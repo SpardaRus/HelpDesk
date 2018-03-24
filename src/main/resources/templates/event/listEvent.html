@@ -16,30 +16,13 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<header>
-    <span sec:authentication="name">Username</span>
-     Roles: <span sec:authentication="principal.authorities">Roles</span>
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-        <button type="submit" >Logout</button>
-    </form>
-</header>
+<div th:replace="fragments/include :: header"></div>
 
 <table width="100%"
        style="height:100%">
     <tr>
         <td width="15%">
-            <div class="category-wrap">
-                <h3>Menu</h3>
-                <ul>
-                    <li><a th:href="@{/}">List event</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/user}">Users</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
-                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/personala}">Personal</a></li>
-                    <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/personalu}">Personal</a></li>
-                </ul>
-            </div>
+            <div th:replace="fragments/include :: menu"></div>
         </td>
         <td width="85%">
             <div align="center" style="margin: auto;
@@ -124,10 +107,7 @@
         </td>
     </tr>
 </table>
-<footer>
-    <div>
-        <h2>Aleksey Yasakov</h2>
-    </div>
-</footer>
+<div th:replace="fragments/include :: footer"></div>
+
 </body>
 </html>

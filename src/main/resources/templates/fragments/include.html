@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <title>Help_desk</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:fragment="header">
+    <header>
+        <span sec:authentication="name">Username</span>
+        Roles: <span sec:authentication="principal.authorities">Roles</span>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <button type="submit" >Logout</button>
+        </form>
+    </header>
+</div>
+            <div class="category-wrap" th:fragment="menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a th:href="@{/}">List event</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/user}">Users</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/admin}">Admins</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/quality}">Quality</a></li>
+                    <li sec:authorize="hasRole('ROLE_SUPERADMIN')"><a th:href="@{/status}">Status</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/personala}">Personal</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/personalu}">Personal</a></li>
+                </ul>
+            </div>
+<div th:fragment="footer">
+    <footer>
+        <div>
+            <h2>Aleksey Yasakov</h2>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
