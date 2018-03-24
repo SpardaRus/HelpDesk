@@ -33,6 +33,8 @@ public class EventController {
     private QualityRepository qualityRepository;
     @Autowired
     private StatusRepository statusRepository;
+    @Autowired
+    private RoleRepository roleRepository;
     @GetMapping
     public String listEvent(Model model){
         Iterable<Event> events;
@@ -167,10 +169,14 @@ public class EventController {
             event=eventRepository.findOne(event.getId());
             UserSecurity userSecurity = (UserSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-            if((!userSecurity.getUsername().equals("superadmin"))&&
-                    (event.getAdmin()==null||
-                    event.getAdmin().getId_auth()!=userSecurity.getId())){
+            String c="";
+            for(Object o:userSecurity.getAuthorities()){
+                c=""+o;
+            }
 
+            if((!userSecurity.getUsername().equals("superadmin"))&&
+                    ((c.equals("user")&&((event.getUser()==null||event.getUser().getId_auth()!=userSecurity.getId()))))||
+                    ((c.equals("admin")&&((event.getAdmin()==null||event.getAdmin().getId_auth()!=userSecurity.getId()))))){
                 model.addAttribute("error","This event is not yours");
                 return "log/log";
             }
