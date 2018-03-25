@@ -1,0 +1,7 @@
+com.help_desk
+com.help_desk.config
+com.help_desk.controller
+com.help_desk.controller.form
+com.help_desk.entity
+com.help_desk.repository
+com.help_desk.service
