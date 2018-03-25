@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * Controller to work with quality
+ */
 @RequestMapping("/quality")
 @Controller
 public class QualityController {
@@ -17,6 +20,12 @@ public class QualityController {
     @Autowired
     QualityRepository qualityRepository;
 
+    /**
+     * Return all quality on view
+     * @param model
+     * @param qualityF
+     * @return
+     */
     @GetMapping
     public String view(Model model, @ModelAttribute("qualityF") Quality qualityF) {
         model.addAttribute("qualitys", qualityRepository.findAll());
@@ -24,6 +33,14 @@ public class QualityController {
         model.addAttribute("qualityF",qualityF);
         return "quality/quality";
     }
+
+    /**
+     * Find quality
+     * @param model
+     * @param qualityF
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/find_quality")
     public String findQuality(Model model,
                               @Valid
@@ -41,6 +58,13 @@ public class QualityController {
         return "quality/quality";
     }
 
+    /**
+     * Edit quality
+     * @param model
+     * @param qualityF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/edit_quality", method = RequestMethod.POST)
     public String editQuality(Model model,
                               @Valid
@@ -57,6 +81,14 @@ public class QualityController {
         model.addAttribute("quality",new Quality());
         return "quality/quality";
     }
+
+    /**
+     * Delete quality
+     * @param model
+     * @param qualityF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/delete_quality", method = RequestMethod.POST)
     public String deleteQuality(Model model,
                                 @Valid
@@ -79,6 +111,13 @@ public class QualityController {
         model.addAttribute("quality",new Quality());
         return "quality/quality";
     }
+
+    /**
+     * Adding quality
+     * @param model
+     * @param quality
+     * @return
+     */
     @RequestMapping(value = "/add_quality", method = RequestMethod.POST)
     public String addQuality(Model model,
                            @ModelAttribute("quality") Quality quality){

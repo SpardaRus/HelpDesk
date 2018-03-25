@@ -2,6 +2,9 @@ package com.help_desk.controller.form;
 
 import com.help_desk.entity.Admin;
 
+/**
+ * Class for working with administrator creation form
+ */
 public class AdminRegistrationForm {
 
     private String username;

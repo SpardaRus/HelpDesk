@@ -23,6 +23,9 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Controller to work with user
+ */
 @RequestMapping("/user")
 @Controller
 public class UserController {
@@ -35,7 +38,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-
+    /**
+     * Return all users on view
+     * @param model
+     * @param userF
+     * @return
+     */
     @GetMapping
     public String view(Model model,@ModelAttribute("userF") User userF) {
         model.addAttribute("users", userRepository.findAll());
@@ -43,6 +51,14 @@ public class UserController {
         model.addAttribute("userF",new User());
         return "user/editUsers";
     }
+
+    /**
+     * Find user
+     * @param model
+     * @param userF
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/find_user")
     public String findUser(Model model,
                            @Valid
@@ -60,6 +76,13 @@ public class UserController {
         return "user/editUsers";
     }
 
+    /**
+     * Edit user
+     * @param model
+     * @param userF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/edit_user", method = RequestMethod.POST)
     public String editUser(Model model,
                            @Valid
@@ -76,6 +99,14 @@ public class UserController {
         model.addAttribute("userForm",new UserRegistrationForm());
         return "user/editUsers";
     }
+
+    /**
+     * Delete user
+     * @param model
+     * @param userF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/delete_user", method = RequestMethod.POST)
     public String deleteUser(Model model,
                              @Valid
@@ -101,6 +132,13 @@ public class UserController {
         model.addAttribute("userForm",new UserRegistrationForm());
         return "user/editUsers";
     }
+
+    /**
+     * Adding user
+     * @param model
+     * @param userForm
+     * @return
+     */
     @RequestMapping(value = "/add_user", method = RequestMethod.POST)
     public String addUser(Model model,
                            @ModelAttribute("userForm") UserRegistrationForm userForm) {

@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
 
+/**
+ * Controller to work with admin
+ */
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
@@ -31,7 +34,12 @@ public class AdminController {
     @Autowired
     AdminRepository adminRepository;
 
-
+    /**
+     * Return all admin on view
+     * @param model
+     * @param adminF
+     * @return
+     */
     @GetMapping
     public String view(Model model, @ModelAttribute("adminF") Admin adminF) {
         model.addAttribute("admins", adminRepository.findAll());
@@ -39,6 +47,14 @@ public class AdminController {
         model.addAttribute("adminF",adminF);
         return "admin/editAdmins";
     }
+
+    /**
+     * Search administrators
+     * @param model
+     * @param adminF
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/find_admin")
     public String findAdmin(Model model,
                             @Valid
@@ -57,6 +73,13 @@ public class AdminController {
         return "admin/editAdmins";
     }
 
+    /**
+     * Edit administrators
+     * @param model
+     * @param adminF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/edit_admin", method = RequestMethod.POST)
     public String editAdmin(Model model,
                             @Valid
@@ -73,6 +96,14 @@ public class AdminController {
         model.addAttribute("adminForm",new AdminRegistrationForm());
         return "admin/editAdmins";
     }
+
+    /**
+     * Delete administrators
+     * @param model
+     * @param adminF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/delete_admin", method = RequestMethod.POST)
     public String deleteAdmin(Model model,
                               @Valid
@@ -95,6 +126,13 @@ public class AdminController {
         model.addAttribute("adminForm",new AdminRegistrationForm());
         return "admin/editAdmins";
     }
+
+    /**
+     * Adding administrators
+     * @param model
+     * @param adminForm
+     * @return
+     */
     @RequestMapping(value = "/add_admin", method = RequestMethod.POST)
     public String addAdmin(Model model,
                            @ModelAttribute("adminForm") AdminRegistrationForm adminForm) {

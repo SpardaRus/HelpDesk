@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * Controller to work with status
+ */
 @RequestMapping("/status")
 @Controller
 public class StatusController {
@@ -19,6 +22,12 @@ public class StatusController {
     @Autowired
     StatusRepository statusRepository;
 
+    /**
+     * Return all statuses on view
+     * @param model
+     * @param statusF
+     * @return
+     */
     @GetMapping
     public String view(Model model, @ModelAttribute("statusF") Status statusF) {
         model.addAttribute("statuss", statusRepository.findAll());
@@ -26,6 +35,14 @@ public class StatusController {
         model.addAttribute("statusF",statusF);
         return "status/status";
     }
+
+    /**
+     * Find status
+     * @param model
+     * @param statusF
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/find_status")
     public String findStatus(Model model,
                              @Valid
@@ -43,6 +60,13 @@ public class StatusController {
         return "status/status";
     }
 
+    /**
+     * Edit status
+     * @param model
+     * @param statusF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/edit_status", method = RequestMethod.POST)
     public String editStatus(Model model,
                              @Valid
@@ -59,6 +83,14 @@ public class StatusController {
         model.addAttribute("status",new Status());
         return "status/status";
     }
+
+    /**
+     * Delete status
+     * @param model
+     * @param statusF
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/delete_status", method = RequestMethod.POST)
     public String deleteStatus(Model model,
                                @Valid
@@ -83,6 +115,15 @@ public class StatusController {
         model.addAttribute("status",new Status());
         return "status/status";
     }
+
+    /**
+     * Adding status
+     * @param model
+     * @param statusF
+     * @param statuss
+     * @param status
+     * @return
+     */
     @RequestMapping(value = "/add_status", method = RequestMethod.POST)
     public String addStatus(Model model,
                             @ModelAttribute("statusF") Status statusF,

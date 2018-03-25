@@ -2,7 +2,9 @@ package com.help_desk.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
-
+/**
+ * Table of user
+ */
 @Entity
 public class User {
 

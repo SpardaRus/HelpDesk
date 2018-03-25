@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
-
+/**
+ * Table of username/password
+ */
 @Entity
 @Table(name = "USERS")
 public class UserSecurity implements UserDetails {

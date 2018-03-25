@@ -1,7 +1,9 @@
 package com.help_desk.entity;
 
 import javax.persistence.*;
-
+/**
+ * Table of Event
+ */
 @Entity
 public class Event {
 

@@ -16,20 +16,37 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
+/**
+ * Implementation of the interface to work with authorization
+ */
 @Service
 public class UserServiceImpl implements UserService {
-
+    /**
+     * The default role 'ROLE_USER'
+     */
     private static final long ROLE_USER_ID = 1L;
-
+    /**
+     * The repository is a table of username/password
+     */
     @Autowired
     private UserSecurityRepository userRepository;
-
+    /**
+     * The object to encode password
+     */
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    /**
+     * The repository is a table of roles
+     */
     @Autowired
     private RoleRepository roleRepository;
 
+    /**
+     * Search user data by name
+     * @param username username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserSecurity user = userRepository.findByUsername(username);
@@ -39,6 +56,11 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
+     * Registering a user with the default role
+     * @param user user
+     * @return
+     */
     @Override
     public UserSecurity signupUser(UserSecurity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -46,6 +68,11 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Collections.singleton(userRole));
         return userRepository.save(user);
     }
+    /**
+     * Registering a user with the ROLE_ADMIN role
+     * @param user user
+     * @return
+     */
     @Override
     public UserSecurity signupUser(UserSecurity user, Long role) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -54,6 +81,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Retrieving user data for a given session
+     * @return user
+     */
     @Override
     public UserSecurity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
@@ -65,6 +96,11 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
+     * Checking the user role of a given session
+     * @param role Name role
+     * @return
+     */
     @Override
     public boolean hasRole(String role) {
         Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)

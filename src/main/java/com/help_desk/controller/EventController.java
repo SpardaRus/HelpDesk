@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Controller to work with events
+ */
 @RequestMapping("/")
 @Controller
 public class EventController {
@@ -35,6 +38,12 @@ public class EventController {
     private StatusRepository statusRepository;
     @Autowired
     private RoleRepository roleRepository;
+
+    /**
+     * Return all events on view
+     * @param model
+     * @return
+     */
     @GetMapping
     public String listEvent(Model model){
         Iterable<Event> events;
@@ -60,6 +69,12 @@ public class EventController {
         model.addAttribute("eventF", new Event());
         return "event/listEvent";
     }
+
+    /**
+     * Personal account admin
+     * @param model
+     * @return
+     */
     @GetMapping("/personala")
     public String listEventPersonal(Model model){
         Iterable<Event> events;
@@ -96,6 +111,12 @@ public class EventController {
         model.addAttribute("eventF", new Event());
         return "event/listEvent";
     }
+
+    /**
+     * Personal account user
+     * @param model
+     * @return
+     */
     @GetMapping("/personalu")
     public String listEventPersonalu(Model model){
         Iterable<Event> events;
@@ -132,11 +153,24 @@ public class EventController {
         model.addAttribute("eventF", new Event());
         return "event/listEvent";
     }
+
+    /**
+     * Redirect to the page add event
+     * @param model
+     * @return
+     */
     @GetMapping("/addEvent")
     public String addEvent(Model model){
         model.addAttribute("event",new Event());
         return "event/addEvent";
     }
+
+    /**
+     * Adding Event
+     * @param model
+     * @param event
+     * @return
+     */
     @PostMapping("/addEvent")
     public String addEventPost(Model model,@ModelAttribute("event") Event event){
         if(!event.getDescription().equals(null)&&!event.getDescription().equals("")){
@@ -153,6 +187,14 @@ public class EventController {
         }
         return "log/log";
     }
+
+    /**
+     * Redirect to the page edit event
+     * @param model
+     * @param event
+     * @param bindingResult
+     * @return
+     */
     @GetMapping("/editEvent")
     public String editEvent(Model model,
                             @Valid
@@ -189,6 +231,13 @@ public class EventController {
         }
 
     }
+
+    /**
+     * Edit event
+     * @param model
+     * @param event
+     * @return
+     */
     @PostMapping("/editEvent")
     public String editEventPost(Model model,@ModelAttribute("event") Event event){
             eventRepository.save(event);
@@ -196,6 +245,14 @@ public class EventController {
             model.addAttribute("error","Data successfully edited");
             return "log/log";
     }
+
+    /**
+     * Delete event
+     * @param model
+     * @param event
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/deleteEvent")
     public String deleteEvent(Model model,
                               @Valid

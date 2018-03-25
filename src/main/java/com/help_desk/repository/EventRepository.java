@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+/**
+ * Repository to work with Entity Event
+ */
 @Repository
 public interface EventRepository extends CrudRepository<Event,Integer> {
     List<Event> findByOrderByIdDesc();

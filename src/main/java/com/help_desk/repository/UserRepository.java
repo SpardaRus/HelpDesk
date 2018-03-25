@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.beans.Transient;
-
+/**
+ * Repository to work with Entity User
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer> {
 

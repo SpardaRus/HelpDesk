@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Repository to work with Entity Admin
+ */
 @Repository
 public interface AdminRepository extends CrudRepository<Admin,Integer> {
 

@@ -2,6 +2,9 @@ package com.help_desk.controller.form;
 
 import com.help_desk.entity.User;
 
+/**
+ * Class for working with users creation form
+ */
 public class UserRegistrationForm {
 
     private String username;
